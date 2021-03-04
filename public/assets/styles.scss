@@ -1,0 +1,35 @@
+@import "~normalize.css";
+@import "roboto.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Roboto";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+#toast-container {
+  position: absolute;
+  top: 0;
+  color: #fff;
+  font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 8px;
+  }
+}
