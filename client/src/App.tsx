@@ -1,12 +1,22 @@
 import React, { Component, ReactElement } from "react";
 
-import { Header } from "./components";
+import { Footer, Header, Main } from "./components";
+
+import "./App.scss";
+import { Redirect, Route, Switch } from "react-router";
 
 class App extends Component {
   public render(): ReactElement {
     return (
       <div className="app">
-        <Header title="Hello World" />
+        <Header />
+        <Redirect to="/" exact />
+        <Switch>
+          <Route path="/" exact component={Main} />
+          {/* <Route path={`/${}`} */}
+        </Switch>
+
+        <Footer />
       </div>
     );
   }
