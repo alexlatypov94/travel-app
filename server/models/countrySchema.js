@@ -1,44 +1,44 @@
-const {Schema, model, Types} = require('mongoose')
+const { Schema, model, Types } = require('mongoose');
 
 const countrySchema = new Schema({
-  country: {type: String},
+  country: { type: String },
   countryName: {
-    en: {type: String},
-    ru: {type: String},
-    es: {type: String}
+    en: { type: String },
+    ru: { type: String },
+    es: { type: String },
   },
   capital: {
-    en: {type: String},
-    ru: {type: String},
-    es: {type: String}
+    en: { type: String },
+    ru: { type: String },
+    es: { type: String },
   },
-  countryMainImg: {type: String},
+  countryMainImg: { type: String },
   countryDescription: {
-    en: {type: String},
+    en: { type: String },
 
-    ru: {type: String},
+    ru: { type: String },
 
-    es: {type: String}
+    es: { type: String },
   },
   countryAttractions: [
     {
-      attractionsImg: {type: String},
+      attractionsImg: { type: String },
       attractionsName: {
-        en: {type: String},
-        ru: {type: String},
-        es: {type: String}
+        en: { type: String },
+        ru: { type: String },
+        es: { type: String },
       },
       attractionsDescr: {
-        en: {type: String},
+        en: { type: String },
 
-        ru: {type: String},
+        ru: { type: String },
 
-        es: {type: String}
-      }
-    }
+        es: { type: String },
+      },
+    },
   ],
-  countryVideo: {type: String},
-  countryCoordinate: {type: Array}
+  countryVideo: { type: String },
+  countryCoordinate: { type: Array },
 });
 
-module.exports = model('Country', countrySchema)
+module.exports = model('Country', countrySchema);
