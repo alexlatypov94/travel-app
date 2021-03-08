@@ -1,74 +1,50 @@
+// фрэймворк node js
 const express = require('express');
+// подключаем конфиг файл
 const config = require('config');
-const connectionString = "mongodb+srv://maxim:qwerty123@cluster0.eimku.mongodb.net/app?retryWrites=true&w=majority";
+// подключаем пакет mongoose
 const mongoose = require('mongoose');
 const userSchema = require('./models/userSchema')
 const countrySchema = require('./models/countrySchema')
 const bodyParser = require('body-parser');
-const routes = require('./routes/routes');
-const User = mongoose.model('user', userSchema, 'user');
-const Country = mongoose.model('country', countrySchema, 'country');
-let db;
+const router = express.Router;
 
+// результат работы функции экспресс (будущий сервер)
 const app = express();
+// записываем порт из файла конфига
+const PORT = config.get('port') || 5000;
+// регистрируем роут по пути /api/auth
 
-const PORT = process.env.PORT || 5000;
+app.use(express.json())
 
-async function createUser(username) {
-    return new User({
-      username,
-      created: Date.now()
-    }).save()
-}
-async function findUser(username) {
-    return await User.findOne({ username })
-}
+app.use('/api', require('./routes/routes'))
+// app.get('/', (req, res) => res.send('we are on home'))
 
-async function createUser(username) {
-  return new User({
-    username,
-    created: Date.now()
-  }).save()
-}
 
-async function findCountry(country) {
-  return await Country.findOne({ country })
-}
 
-async function createCountry(country) {
-  return new Country({
-    country,
-    capital,
-    info,
-    videoUrl,
-    photos,
-  }).save()
-}
-
-routes(app);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true,
-}));
-
-mongoose.connect(config.get("mongoUri"),
-  { useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: false },
-    function(err, database){
-      if(err) return console.log(err);
-      db = database;
-      
-      app.get('/users', (req, res) => {
-        res.send(db);
-      })
-
+async function start() {
+  try {
+    // подключаемся к базе данных монго дб и получаем на выходе промис в параметры пишем 1. ссылку из конфига на дб(url на базу данных из mongo db), опции работы с базой,
+    await mongoose.connect(config.get("mongoUri"),
+    { useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true  
+    })
+      const db = mongoose.connection;
+      app.get("/", (req, res)=>res.send('good job'))
+      // этим методом запускаем сервер и говорим ему прослушивать запросы с порта если ошибки приходят пишем "что-то случилось" или указываем что сервер запущен на порту и указываем номер порта
+      // console.log(db)
       app.listen(PORT, (err) => {
         if (err) {
             return console.log('something bad happened', err)
         }
         console.log(`server is listening on ${PORT}`);
       })
-    }
-);
+  } catch (e) {
+    console.log('Server Error', e.message);
+    // выходим из глобального объекта process нод джса через метод exit()
+    process.exit(1)
+  }
+}
+start()

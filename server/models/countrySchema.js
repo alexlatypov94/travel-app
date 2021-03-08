@@ -1,26 +1,44 @@
-const mongoose = require('mongoose')
+const {Schema, model, Types} = require('mongoose')
 
-const countrySchema = new mongoose.Schema({
-    country: {
-        type: String,
-        required: [true, 'Countryname is required']
-    },
-    capital: {
-        type: String,
-        required: [true, 'Capitalname is required']
-    },
-    info: {
-        type: String,
-        required: [true, 'Country info is required']
-    },
-    videoUrl: {
-        type: String,
-        required: [true, 'VideoURL is required']
-    },
-    photos: {
-        type: Buffer,
-        required: [true, 'Photos is required']
+const countrySchema = new Schema({
+  country: {type: String},
+  countryName: {
+    en: {type: String},
+    ru: {type: String},
+    es: {type: String}
+  },
+  capital: {
+    en: {type: String},
+    ru: {type: String},
+    es: {type: String}
+  },
+  countryMainImg: {type: String},
+  countryDescription: {
+    en: {type: String},
+
+    ru: {type: String},
+
+    es: {type: String}
+  },
+  countryAttractions: [
+    {
+      attractionsImg: {type: String},
+      attractionsName: {
+        en: {type: String},
+        ru: {type: String},
+        es: {type: String}
+      },
+      attractionsDescr: {
+        en: {type: String},
+
+        ru: {type: String},
+
+        es: {type: String}
+      }
     }
-})
+  ],
+  countryVideo: {type: String},
+  countryCoordinate: {type: Array}
+});
 
-module.exports = countrySchema
+module.exports = model('Country', countrySchema)
