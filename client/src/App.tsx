@@ -1,4 +1,3 @@
-
 import React, { ReactElement, useState } from "react";
 import { Footer, Header, Main } from "./components";
 import { Redirect, Route, Switch } from "react-router";
@@ -7,7 +6,6 @@ import "./App.scss";
 
 const App = (): ReactElement => {
   const [currentLang, setCurrentLang] = useState("en");
-
 
   const changeLanguarge = (e) => {
     setCurrentLang(e.target.value);
