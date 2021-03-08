@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from "react";
 import { ISwitchLang, LangContext, MAIN_DESCRIPTIONS } from "./../../core";
-import "./Main.scss";
 import { SlickSlider } from "./Slider";
+import "./Main.scss";
 
 export const Main = (): ReactElement => {
   const currentLang: ISwitchLang = useContext(LangContext);

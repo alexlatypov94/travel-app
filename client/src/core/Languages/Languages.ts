@@ -1,4 +1,4 @@
-import { ISwitchLang } from "./../index";
+import { ISwitchLang } from "../index";
 
 export const MAIN_DESCRIPTIONS: ISwitchLang = {
   en: "Dive into travel with Travel App",

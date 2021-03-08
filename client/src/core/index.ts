@@ -1,3 +1,3 @@
 export * from "./interfaces";
-export * from "./Languarges";
+export * from "./Languages";
 export * from "./context";

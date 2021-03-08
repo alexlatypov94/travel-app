@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useContext } from "react";
+import React, { ChangeEvent, ReactElement } from "react";
 import "./Header.scss";
 import "materialize-css";
 

@@ -28,13 +28,13 @@ header {
     display: block;
     border: 1px solid #aaa;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
-    border-radius: .5em;
+    border-radius: 0.5em;
     background: rgba(255, 255, 255, 0.747);
     cursor: pointer;
     option {
-        background: rgba(255, 255, 255, 0.719);
-        cursor: pointer;
-        border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.719);
+      cursor: pointer;
+      border-radius: 0.5rem;
     }
   }
 }

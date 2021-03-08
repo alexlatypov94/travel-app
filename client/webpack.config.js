@@ -62,12 +62,11 @@ module.exports = {
   optimization: optimization(),
   devServer: {
     port: 3001,
-    // proxy: {
-    //   "/api/auth": {
-    //     target: "https://alexlatypov94-reactgame.herokuapp.com/"
-    //     // ws: true
-    //   }
-    // },
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000/"
+      }
+    },
     historyApiFallback: true
   },
   devtool: isDevelopment ? "source-map" : "none",
@@ -87,10 +86,10 @@ module.exports = {
           to: path.resolve(__dirname, "dist")
         },
         { from: path.resolve(__dirname, "public/assets/img"), to: path.resolve(__dirname, "dist/public/assets/img") },
-        // {
-        //   from: path.resolve(__dirname, "public/assets/audio"),
-        //   to: path.resolve(__dirname, "dist/public/assets/audio")
-        // }
+        {
+          from: path.resolve(__dirname, "public/assets/audio"),
+          to: path.resolve(__dirname, "dist/public/assets/audio")
+        }
       ]
     }),
     new MiniCssExtractPlugin({

@@ -1,8 +1,8 @@
 import React, { ReactElement, useState } from "react";
 import { Footer, Header, Main } from "./components";
-import "./App.scss";
 import { Redirect, Route, Switch } from "react-router";
 import { LangContext, contextLang } from "./core";
+import "./App.scss";
 
 const App = (): ReactElement => {
   const [currentLang, setCurrentLang] = useState("en");
@@ -18,7 +18,6 @@ const App = (): ReactElement => {
         <Redirect to="/" exact />
         <Switch>
           <Route path="/" exact render={() => <Main />} />
-          {/* <Route path={`/${}`} */}
         </Switch>
 
         <Footer />
