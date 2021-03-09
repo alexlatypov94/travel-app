@@ -3,7 +3,7 @@ import { ISwitchLang, LangContext, MAIN_DESCRIPTIONS } from "./../../core";
 import { SlickSlider } from "./Slider";
 import "./Main.scss";
 
-export const Main = (): ReactElement => {
+export const Main = ({ countries }: any): ReactElement => {
   const currentLang: ISwitchLang = useContext(LangContext);
   return (
     <main>
@@ -14,7 +14,7 @@ export const Main = (): ReactElement => {
           <img className="user-photo" src="./../../../public/assets/img/photo.png" alt="" />
         </div>
         <div className="country-wrapper">
-          <SlickSlider />
+          <SlickSlider countries={countries} />
         </div>
       </div>
     </main>
