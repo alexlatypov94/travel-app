@@ -7,6 +7,7 @@ const countrySchema = new Schema({
     ru: { type: String },
     es: { type: String },
   },
+  countryAbbr: { type:String },
   capital: {
     en: { type: String },
     ru: { type: String },
