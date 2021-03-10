@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import { LangContext } from "./../../../core";
 import "./Slider.scss";
 
-export const SlickSlider = ({ countries }: any): ReactElement => {
+export const SlickSlider = (props: any): ReactElement => {
   const lang: any = useContext(LangContext);
   const [countryApi, setCountryApi] = useState([]);
   const settings: any = {
@@ -13,6 +13,10 @@ export const SlickSlider = ({ countries }: any): ReactElement => {
     slidesToShow: 3,
     slidesToScroll: 1,
     adaptiveHeight: true
+  };
+
+  const handlerClickCountry = (el: string) => {
+    props.fnClick(el);
   };
 
   useEffect(() => {
@@ -25,9 +29,9 @@ export const SlickSlider = ({ countries }: any): ReactElement => {
 
   return (
     <Slider {...settings}>
-      {countries.map((el: any, i: number) => {
+      {props.countries.map((el: any, i: number) => {
         return (
-          <NavLink key={i} to="/country" className="slider-item-castom">
+          <NavLink key={i} to="/country" className="slider-item-castom" onClick={() => handlerClickCountry(el.country)}>
             <img src={el.countryMainImg} alt="" />
             <div className="item-hover-content">
               <h1>{el.countryName[lang]}</h1>
@@ -40,47 +44,6 @@ export const SlickSlider = ({ countries }: any): ReactElement => {
           </NavLink>
         );
       })}
-      {/* <NavLink to="/cuba" className="slider-item-castom">
-        <img src="./../../../public/assets/img/cuba-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>Cuba</h1>
-        </div>
-      </NavLink>
-
-      <NavLink to="/england" className="slider-item-castom">
-        <img src="./../../../public/assets/img/england-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>England</h1>
-        </div>
-      </NavLink>
-
-      <NavLink to="/mexico" className="slider-item-castom">
-        <img src="./../../../public/assets/img/mexico-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>Mexico</h1>
-        </div>
-      </NavLink>
-
-      <NavLink to="/portugal" className="slider-item-castom">
-        <img src="./../../../public/assets/img/portugal-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>Portugal</h1>
-        </div>
-      </NavLink>
-
-      <NavLink to="/tunis" className="slider-item-castom">
-        <img src="./../../../public/assets/img/tunis-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>Tunis</h1>
-        </div>
-      </NavLink>
-
-      <NavLink to="turkey" className="slider-item-castom">
-        <img src="./../../../public/assets/img/turkey-bg.jpg" alt="" />
-        <div className="item-hover-content">
-          <h1>Turkey</h1>
-        </div>
-      </NavLink> */}
     </Slider>
   );
 };
