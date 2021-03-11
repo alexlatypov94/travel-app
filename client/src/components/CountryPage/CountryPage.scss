@@ -1,6 +1,5 @@
 .country-page-wrapper {
   width: 100%;
-  background: #fff;
   height: 50vh;
   display: grid;
   grid-template-columns: 70% 30%;
@@ -8,5 +7,10 @@
 
   .info-country {
     background: red;
+  }
+
+  .aside-wrapper {
+    display: flex;
+    flex-direction: column;
   }
 }

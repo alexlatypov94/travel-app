@@ -14,6 +14,7 @@ const App = (): ReactElement => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
+  const isAuth: boolean = false;
 
   const changeLanguarge = (e) => {
     setCurrentLang(e.target.value);
@@ -40,28 +41,35 @@ const App = (): ReactElement => {
         }
       );
   }, []);
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <Preloader />;
+  if (!isAuth) {
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <Preloader />;
+    } else {
+      return (
+        <LangContext.Provider value={contextLang[currentLang]}>
+          <div className="app">
+            <Header switchLang={changeLanguarge} />
+            <Redirect to="/country" exact />
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
+              />
+              <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
+            </Switch>
+            <Footer />
+          </div>
+        </LangContext.Provider>
+      );
+    }
   } else {
     return (
-      <LangContext.Provider value={contextLang[currentLang]}>
-        <div className="app">
-          <Header switchLang={changeLanguarge} />
-          <Redirect to="/" exact />
-          <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
-            />
-            <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
-          </Switch>
-          <Footer />
-        </div>
-      </LangContext.Provider>
+      <div className="app">
+        <AuthPage />
+      </div>
     );
   }
 };
