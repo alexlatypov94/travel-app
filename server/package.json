@@ -20,7 +20,12 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
+    "leaflet": "^1.7.1",
     "mongoose": "^5.11.15",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-leaflet": "^3.1.0",
+    "react-leaflet-fullscreen": "^1.0.1",
     "routes": "^2.1.0",
     "shortid": "^2.2.16"
   },

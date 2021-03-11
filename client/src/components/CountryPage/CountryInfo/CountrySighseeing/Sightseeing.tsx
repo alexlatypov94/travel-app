@@ -1,0 +1,42 @@
+import React, {ReactElement, useContext} from "react";
+import "./Sightseeing.scss";
+import { render } from 'react-dom';
+import Gallery from 'react-grid-gallery';
+import {LangContext} from "../../../../core";
+
+export const Sightseeing = ({ currentCountry }: any): ReactElement => {
+
+  const lang: any = useContext(LangContext)
+
+  console.log(currentCountry);
+
+  const IMG: any = currentCountry.map((el) => {
+    return {
+      src: el?.attractionsImg,
+      thumbnail: el?.attractionsImg,
+      thumbnailWidth: 320,
+      thumbnailHeight: 174,
+      caption: el?.attractionsDescr?.[lang],
+      thumbnailCaption: (<span >{el?.attractionsName?.[lang]}</span>)
+    }
+  });
+
+  return (
+    <div style={{
+      display: "block",
+
+      height: "100%",
+      width: "100%",
+
+      overflow: "auto",
+      textAlign: "center",
+      fontSize: "20px",
+
+    }}>
+      <Gallery style={{
+        display: "flex",
+        fontSize: "15px"
+      }} images={IMG} />
+    </div>
+  )
+}

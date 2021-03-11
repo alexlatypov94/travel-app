@@ -6,7 +6,24 @@
   font-size: 3rem;
 
   .info-country {
-    background: red;
+    border-radius: 2rem;
+    margin: 0 2rem;
+  }
+
+  .aside-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .country-info-wrapper {
+
+    margin-top: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    overflow: hidden;
   }
 
   .aside-wrapper {

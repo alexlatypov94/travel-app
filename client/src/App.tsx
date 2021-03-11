@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useState } from "react";
 
+import React, { ReactElement, useEffect, useState } from "react";
 import { Footer, Header, Main, AuthPage } from "./components";
 
 import { Redirect, Route, Switch } from "react-router";
@@ -25,6 +25,7 @@ const App = (): ReactElement => {
       return item?.country === e ? item : undefined;
     });
     setSelectedCountry(country);
+    localStorage.setItem("currentCountry",  JSON.stringify(country))
   };
 
   useEffect(() => {
