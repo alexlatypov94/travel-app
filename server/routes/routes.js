@@ -1,7 +1,5 @@
-// достаем роутер
 const { Router } = require('express');
 const mongoose = require('mongoose');
-// создаем роутер
 const router = Router();
 const User = require('../models/userSchema');
 const Country = require('../models/countrySchema');
@@ -10,7 +8,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-// указываем путь для обработки пост запроса localhost:5000/register
 router.get('/countries', async (req, res) => {
   try {
     const countries = await Country.find();
@@ -38,14 +35,14 @@ router.post(
         });
       }
 
-      const { email, password } = req.body;
+      const { email, password, image } = req.body;
       const candidate = await User.findOne({ email });
 
       if (candidate) res.status(400).json({ message: 'This user is exist' });
 
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      const user = new User({ email: email, password: hashedPassword });
+      const user = new User({ email: email, password: hashedPassword, image: image });
 
       await user.save();
 
@@ -86,7 +83,10 @@ router.post(
       const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {
         expiresIn: '1h',
       });
-      res.send('You enter the system');
+      res.status(201).json({
+        token: token,
+        message: 'You enter the system' 
+      });
     } catch (e) {
       res.status(500).json({
         message: `Something wrong, try to repeat later${e}`,
@@ -94,5 +94,34 @@ router.post(
     }
   }
 );
+
+router.post(
+  '/save-image',
+  async (req, res) => {
+    try {
+      const { email, image } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(400).json({
+          message: 'User not found',
+        });
+      }
+
+      user.image = image;
+      await user.save();
+      res.status(201).json({ message: 'image downloaded'});
+
+      return res.status(201).json({ message: 'image downloaded' });
+    } catch (e) {
+      res.status(500).json({
+        message: `Something wrong, try to repeat later ${e}`,
+      });
+    }
+  }
+);
+
+
 
 module.exports = router;

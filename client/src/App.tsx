@@ -1,5 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Footer, Header, Main } from "./components";
+
+import { Footer, Header, Main, AuthPage } from "./components";
+
 import { Redirect, Route, Switch } from "react-router";
 import { LangContext, contextLang } from "./core";
 import "./App.scss";

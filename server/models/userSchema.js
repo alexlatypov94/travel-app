@@ -17,6 +17,12 @@ const userSchema = new Schema({
     type: Types.ObjectId,
     ref: 'Link',
   },
+  image: {
+    type: String
+  },
+  username: {
+    type: String
+  }
 });
 
 module.exports = model('User', userSchema);

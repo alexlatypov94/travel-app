@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = config.get('port') || 5000;
 
-app.use(express.json());
+app.use(express.json({limit: 15728640}));
 
 app.use('/api', require('./routes/routes'));
 

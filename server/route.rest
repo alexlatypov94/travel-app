@@ -1,1 +1,0 @@
-GET mongodb+srv://maxim:qwerty123@cluster0.eimku.mongodb.net/travel-app?retryWrites=true&w=majority
