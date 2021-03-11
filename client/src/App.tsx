@@ -14,16 +14,20 @@ const App = (): ReactElement => {
     setCurrentLang(e.target.value);
   };
 
+  const handlerRedirectToMainPage = () => {
+    
+  }
+
   return (
     <LangContext.Provider value={contextLang[currentLang]}>
       <div className="app">
-        <AuthPage />
-        {/* <Header switchLang={changeLanguarge} />
-        <Redirect to="/" exact />
+        <Header switchLang={changeLanguarge} />
+        <Redirect to="/auth-page" exact />
         <Switch>
+          <Route path="/auth-page" exact render={() => <AuthPage redirect={handlerRedirectToMainPage}/>} />
           <Route path="/" exact render={() => <Main />} />
         </Switch>
-        <Footer /> */}
+        <Footer />
       </div>
     </LangContext.Provider>
   );

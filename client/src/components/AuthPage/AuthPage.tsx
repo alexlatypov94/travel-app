@@ -1,35 +1,20 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import "./AuthPage.scss";
 
-export const AuthPage = (): ReactElement => {
+export const AuthPage = (props: any): ReactElement => {
   const mail: any = useRef("");
   const psswrd: any = useRef("");
   const img: any = useRef("");
   const regUrl: string = "http://localhost:3001/api/register";
   const logUrl: string = "http://localhost:3001/api/login";
-  const imgUrl: string = "http://localhost:3001/api/save-image";
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [data, setData] = useState(undefined);
-  const [reqOpt, setReqOpt] = useState(undefined);
   const [isSended, setIsSended] = useState(false);
   const [isLog, setIsLog] = useState(true);
   const [isReg, setIsReg] = useState(false);
   const [url, setUrl] = useState(logUrl);
   const [buffer, setBuffer] = useState("");
-
-  const uploadImg = () => {
-    const selFile: File = img.current.files[0];
-    const reader: any = new FileReader();
-    reader.readAsDataURL(selFile);
-    reader.onload = (e: any) => {
-      const image: any = new Image();
-      image.src = e.target?.result;
-      console.log(image.src);
-      setUrl(imgUrl);
-      setBuffer(image.src);
-      setIsSended(true);
-    };
-  };
 
   const logMode = () => {
     setIsLog(true);
@@ -71,10 +56,11 @@ export const AuthPage = (): ReactElement => {
             window.localStorage.setItem("user", data.username);
           }
         })
-        .then(() => setIsSended(false));
+        .then(() => {
+          setIsSended(false);
+        });
     }
   }, [isSended]);
-  console.log(isSended);
   return (
     <div className={"auth-page"}>
       <div className={"chooser"}>
@@ -85,13 +71,16 @@ export const AuthPage = (): ReactElement => {
           Sign in
         </button>
       </div>
-      <label htmlFor={"mail"}>E-mail</label>
-      <input type="text" id={"mail"} ref={mail} />
-      <label htmlFor={"password"}>Password</label>
-      <input type="text" id={"password"} ref={psswrd} />
+      <div className={"mail"}>
+        <label htmlFor={"mail"}>E-mail</label>
+        <input type="text" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
+      </div>
+      <div className={"pass"}>
+        <label htmlFor={"password"}>Password</label>
+        <input type="text" id={"password"} ref={psswrd} placeholder={"Enter password"} />
+      </div>
       <input type="submit" onClick={postData} />
-      {data && !isSended ? <h2>{data}</h2> : <h2>not entered</h2>}
-      <input type="file" ref={img} onChange={uploadImg} accept=".jpeg .jpg .png"></input>
+      {data && !isSended ? props.redirect() : <h2>not entered</h2>}
     </div>
   );
 };
