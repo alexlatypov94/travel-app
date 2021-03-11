@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import "./AuthPage.scss";
 
 export const AuthPage = (props: any): ReactElement => {
@@ -14,7 +14,6 @@ export const AuthPage = (props: any): ReactElement => {
   const [isLog, setIsLog] = useState(true);
   const [isReg, setIsReg] = useState(false);
   const [url, setUrl] = useState(logUrl);
-  const [buffer, setBuffer] = useState("");
 
   const logMode = () => {
     setIsLog(true);
@@ -28,7 +27,6 @@ export const AuthPage = (props: any): ReactElement => {
   };
 
   const postData = () => {
-    console.log(url);
     setIsSended(true);
     setEmail(mail.current.value);
     setPassword(psswrd.current.value);
@@ -44,7 +42,6 @@ export const AuthPage = (props: any): ReactElement => {
         body: JSON.stringify({
           email: email,
           password: password,
-          image: buffer
         })
       })
         .then((resolve) => resolve.json())
