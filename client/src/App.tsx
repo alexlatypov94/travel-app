@@ -1,5 +1,6 @@
+
 import React, { ReactElement, useContext, useEffect, useState } from "react";
-import { Footer, Header, Main, AuthPage } from "./components";
+import { Footer, Header, Main, AuthPage, ProfilePage } from "./components";
 
 import { Redirect, Route, Switch } from "react-router";
 import { LangContext, contextLang } from "./core";
@@ -13,12 +14,13 @@ const App = (): ReactElement => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const isAuth: boolean = false;
+
   const changeLanguarge = (e) => {
     setCurrentLang(e.target.value);
   };
 
   const handlerClickCurrentCountry = (e) => {
+
     const country: any = countriesArr?.find((item: any) => {
       return item?.country === e ? item : undefined;
     });
@@ -27,6 +29,7 @@ const App = (): ReactElement => {
   };
 
   useEffect(() => {
+
     fetch("http://localhost:3001/api/countries", { mode: "no-cors" })
       .then((response) => response.json())
       .then(
@@ -41,7 +44,6 @@ const App = (): ReactElement => {
       );
   }, []);
 
-  if (!isAuth) {
     if (error) {
       return <div>Error: {error?.message}</div>;
     } else if (!isLoaded) {
@@ -53,6 +55,11 @@ const App = (): ReactElement => {
             <Header switchLang={changeLanguarge} />
             {/* <Redirect to="/country" exact /> */}
             <Switch>
+				<Route
+	              path="/auth-page"
+	              exact
+	              render={() => <AuthPage redirect={() => <Redirect to="/" exact />} lang={currentLang} />}
+	            />
               <Route
                 path="/"
                 exact
@@ -65,11 +72,6 @@ const App = (): ReactElement => {
         </LangContext.Provider>
       );
     }
-  } else {
-    return (
-      <div className="app">
-        <AuthPage />
-      </div>
     );
   }
 };

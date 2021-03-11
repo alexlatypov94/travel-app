@@ -44,4 +44,5 @@ const countrySchema = new Schema({
   countryCoordinate: { type: Array },
 });
 
+
 module.exports = model("Country", countrySchema);
