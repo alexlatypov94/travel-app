@@ -1,0 +1,12 @@
+.country-page-wrapper {
+  width: 100%;
+  background: #fff;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  font-size: 3rem;
+
+  .info-country {
+    background: red;
+  }
+}
