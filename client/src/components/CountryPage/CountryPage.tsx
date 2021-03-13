@@ -6,9 +6,8 @@ import "./CountryPage.scss";
 export const CountryPage = ({ currentCountry }: any): ReactElement => {
   const [error, setError] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [temperature, setTemperature] = useState("");
-  const [tempIcon, setTempIcon] = useState("");
-  const [weatherDescription, setWeatherDescription] = useState("");
+  const [currencyRates, setCurrencyRates] = useState(undefined);
+  const [weatherData, setWeatherData] = useState(undefined);
 
   useEffect(() => {
     fetch(
@@ -18,19 +17,28 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
       .then(
         (result) => {
           setIsLoaded(true);
-          setTemperature(result.list[0].main.temp);
-          setTempIcon(result.list[0].weather[0].icon);
-          setWeatherDescription(result.list[0].weather[0].description);
+          setWeatherData(result);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
         }
       );
+    fetch("https://openexchangerates.org/api/latest.json?app_id=8f701a3e421348ca9870fb94fb7a39e0")
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setCurrencyRates(result.rates);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
   }, []);
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error?.message}</div>;
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
@@ -38,9 +46,9 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
       <div className="country-page-wrapper">
         <div className="info-country"></div>
         <div className="aside-wrapper">
-          <Weather country={currentCountry} temp={temperature} icon={tempIcon} description={weatherDescription} />
+          <Weather country={currentCountry} weather={weatherData} />
           <CapitalDate country={currentCountry} />
-          <CurrencyRate />
+          <CurrencyRate country={currentCountry} rates={currencyRates} />
         </div>
       </div>
     );

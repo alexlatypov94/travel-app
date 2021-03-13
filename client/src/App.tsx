@@ -21,8 +21,8 @@ const App = (): ReactElement => {
   };
 
   const handlerClickCurrentCountry = (e) => {
-    const country: any = countriesArr.find((item: any) => {
-      return item.country === e ? item : undefined;
+    const country: any = countriesArr?.find((item: any) => {
+      return item?.country === e ? item : undefined;
     });
     setSelectedCountry(country);
   };
@@ -43,7 +43,7 @@ const App = (): ReactElement => {
   }, []);
   if (!isAuth) {
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div>Error: {error?.message}</div>;
     } else if (!isLoaded) {
       return <Preloader />;
     } else {
@@ -51,7 +51,7 @@ const App = (): ReactElement => {
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
             <Header switchLang={changeLanguarge} />
-            <Redirect to="/country" exact />
+            <Redirect to="/" exact />
             <Switch>
               <Route
                 path="/"

@@ -1,13 +1,15 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, Types } = require("mongoose");
 
 const countrySchema = new Schema({
   country: { type: String },
+  countryCurrency: { type: String },
+  countryTimeZone: { type: String },
   countryName: {
     en: { type: String },
     ru: { type: String },
     es: { type: String },
   },
-  countryAbbr: { type:String },
+  countryAbbr: { type: String },
   capital: {
     en: { type: String },
     ru: { type: String },
@@ -42,4 +44,4 @@ const countrySchema = new Schema({
   countryCoordinate: { type: Array },
 });
 
-module.exports = model('Country', countrySchema);
+module.exports = model("Country", countrySchema);

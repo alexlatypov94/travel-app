@@ -20,10 +20,15 @@ export const CapitalDate = ({ country }: any): ReactElement => {
     <aside className="widget-wrapper date-widget">
       <h1 className="date-widget-title">Date</h1>
       <div className="date-widget-info">
-        <h3 className="date-widget-day">{date.toLocaleString(lang, { weekday: "long" })}</h3>
-        <span className="date-widget-date-num">{date.toLocaleString(lang, { month: "long", day: "numeric" })}</span>
+        <h1 className="date-widget-capital">{country.capital[lang]}</h1>
+        <h3 className="date-widget-day">
+          {date.toLocaleString(lang, { weekday: "long", timeZone: country?.countryTimeZone })}
+        </h3>
+        <span className="date-widget-date-num">
+          {date.toLocaleString(lang, { month: "long", day: "numeric", timeZone: country?.countryTimeZone })}
+        </span>
         <div className="date-widget-time">
-          <span>{date.toLocaleTimeString()}</span>
+          <span>{date.toLocaleTimeString(lang, { timeZone: country?.countryTimeZone })}</span>
         </div>
       </div>
     </aside>
