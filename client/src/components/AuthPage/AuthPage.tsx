@@ -41,7 +41,7 @@ export const AuthPage = (props: any): ReactElement => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           email: email,
-          password: password,
+          password: password
         })
       })
         .then((resolve) => resolve.json())

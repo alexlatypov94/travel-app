@@ -5,3 +5,82 @@ export const MAIN_DESCRIPTIONS: ISwitchLang = {
   ru: "Погрузитесь в путешествие с Travel App",
   es: "Sumérjase en los viajes con la aplicación de viajes"
 };
+
+export const WEEK_DAYS: any = {
+  en: {
+    0: "Sunday",
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
+    6: "Saturday"
+  },
+
+  ru: {
+    0: "Воскресенье",
+    1: "Понедельник",
+    2: "Вторник",
+    3: "Среда",
+    4: "Четверг",
+    5: "Пятница",
+    6: "Суббота"
+  },
+
+  es: {
+    0: "El domingo",
+    1: "El lunes",
+    2: "El martes",
+    3: "El miércoles",
+    4: "El jueves",
+    5: "El viernes",
+    6: "El sábado"
+  }
+};
+
+export const MONTHS: any = {
+  en: {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December"
+  },
+
+  ru: {
+    0: "Январь",
+    1: "Февраль",
+    2: "Март",
+    3: "Апрель",
+    4: "Май",
+    5: "Июнь",
+    6: "Июль",
+    7: "Август",
+    8: "Сентябрь",
+    9: "Октябрь",
+    10: "Ноябрь",
+    11: "Декабрь"
+  },
+
+  es: {
+    0: "Enero",
+    1: "Febrero",
+    2: "Marzo",
+    3: "Abril",
+    4: "Mayo",
+    5: "Junio",
+    6: "Julio",
+    7: "Agosto",
+    8: "Septiembre",
+    9: "Octubre",
+    10: "Noviembre",
+    11: "Diciembre"
+  }
+};

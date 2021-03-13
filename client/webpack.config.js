@@ -72,7 +72,7 @@ module.exports = {
   devtool: isDevelopment ? "source-map" : "none",
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, "public/index.html"),
+      template: path.resolve(__dirname, "./public/index.html"),
       minify: {
         collapseWhitespace: isProduction,
         removeComments: isProduction

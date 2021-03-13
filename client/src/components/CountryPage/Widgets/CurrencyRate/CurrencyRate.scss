@@ -1,0 +1,31 @@
+.currency-widget {
+  color: #fff;
+  background: linear-gradient(0deg, rgba(162, 23, 164, 1) 0%, rgba(161, 20, 141, 1) 21%, rgba(23, 23, 23, 1) 100%);
+  border: 1px solid rgba(255, 6, 172, 0.781);
+  .currency-title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 6, 172, 0.781);
+  }
+
+  .currency-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.7rem;
+    .current-rate-wrapper {
+      margin: 1rem 0;
+      display: flex;
+
+      div {
+        margin-right: 1rem;
+      }
+
+      .cost-rate {
+        color: rgb(0, 252, 13);
+      }
+    }
+  }
+}
