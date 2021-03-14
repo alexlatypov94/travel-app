@@ -14,10 +14,11 @@ main {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 35%;
+      width: 30%;
+      margin-right: 3rem;
 
       .user-name {
-        font-size: 5rem;
+        font-size: 3rem;
         font-weight: bold;
         color: #fff;
         text-transform: uppercase;
@@ -35,7 +36,7 @@ main {
     .country-wrapper {
       padding-top: 3rem;
       height: 100%;
-      width: 65%;
+      width: 70%;
       overflow: hidden;
       position: relative;
       top: 0%;

@@ -1,8 +1,9 @@
-.profile-page {
-  .main-info {
-    img {
-      width: 30%;
-      height: 50%;
-    }
+.main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 30%;
+    height: 50%;
   }
 }

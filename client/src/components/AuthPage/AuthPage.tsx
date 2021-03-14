@@ -75,7 +75,7 @@ export const AuthPage = (props: any): ReactElement => {
     })
       .then((res) => res.json())
       .then((data) => {
-        return data.answer ? setIsAuth(true) : setIsAuth(false);
+        return data.answer ? props.handler(true) : props.handler(false);
       });
 
     if (isLog) {
@@ -90,7 +90,6 @@ export const AuthPage = (props: any): ReactElement => {
         method: "POST",
         body: JSON.stringify({
           email: email,
-
           password: password,
           username: username,
           token: window.localStorage.getItem("token")
@@ -108,9 +107,10 @@ export const AuthPage = (props: any): ReactElement => {
               setIsEntry(true);
               if (isLog) {
                 window.localStorage.setItem("token", data.token);
-                window.localStorage.setItem("usermail", email);
-                window.localStorage.setItem("username", username);
               }
+              window.localStorage.setItem("usermail", email);
+              window.localStorage.setItem("username", data.username);
+              window.localStorage.setItem("image", data.image);
             } else {
               setError(true);
             }
@@ -154,7 +154,6 @@ export const AuthPage = (props: any): ReactElement => {
       </div>
 
       <input type="submit" className={"submit-btn"} onClick={postData} value={sendObjText[props.lang]} />
-      {(isEntry && !isSended) || isAuth ? props.redirect() : <h2>{!err ? infoObjText[props.lang] : data}</h2>}
     </div>
   );
 };

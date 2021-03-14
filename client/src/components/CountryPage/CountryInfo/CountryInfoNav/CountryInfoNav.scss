@@ -1,7 +1,7 @@
 .country-nav {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  background: rgb(168, 168, 168);
+  background: rgba(202, 202, 202, 0.747);
   border-radius: 1rem;
   overflow: hidden;
 
@@ -17,4 +17,8 @@
       background: rgb(231, 144, 144);
     }
   }
+}
+
+.active {
+  background: rgb(231, 144, 144);
 }

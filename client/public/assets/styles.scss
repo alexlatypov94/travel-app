@@ -1,7 +1,6 @@
 @import "~normalize.css";
 @import "roboto.scss";
 
-
 *,
 *::before,
 *::after {
@@ -36,13 +35,19 @@ h6 {
 }
 
 #root {
-  background: url(./img/sunset-2.jpg) #c7c6c6;
+  background: url(./img/sunset-2.jpg) #7e7c7c;
   background-size: cover;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
-  // background-position: 50% 50%;
+  background-position: 50% 50%;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
 }

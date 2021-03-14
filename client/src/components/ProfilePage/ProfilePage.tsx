@@ -1,7 +1,7 @@
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import "./ProfilePage.scss";
 
-export const ProfilePage = (props: any): ReactElement => {
+export const ProfilePage = (): ReactElement => {
   const [isSended, setIsSended] = useState(false);
   const [imgSrc, setImgSrc] = useState("../../../public/assets/img/no-photo.jpg");
   const [form, setForm] = useState(undefined);
@@ -25,6 +25,7 @@ export const ProfilePage = (props: any): ReactElement => {
         .then((resolve) => resolve.json())
         .then((data: any, url: any) => {
           setImgSrc(url);
+          window.localStorage.setItem("image", data.url);
         })
         .then(() => {
           setIsSended(false);
@@ -33,12 +34,16 @@ export const ProfilePage = (props: any): ReactElement => {
   }, [isSended]);
 
   return (
-    <div className={"profile-page"}>
-      {window.localStorage.username ? <h3>Hello, {window.localStorage.username}</h3> : <input type="text" />}
-      <div className={"main-info"}>
-        <img src={imgSrc} />
+    <>
+      {window.localStorage.username ? (
+        <h1 className="user-name">Hello, {window.localStorage.username}</h1>
+      ) : (
+        <input type="text" />
+      )}
+      <div className="main-info">
+        <img className="user-photo" src={imgSrc} alt="" />
         <input type="file" onChange={saveImage} accept="image/jpeg,image/png,image/jpg" />
       </div>
-    </div>
+    </>
   );
 };

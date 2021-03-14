@@ -13,6 +13,11 @@ const App = (): ReactElement => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
+
+  const authHandler = (bool) => {
+    setIsAuth(bool);
+  };
 
   const changeLanguarge = (e) => {
     setCurrentLang(e.target.value);
@@ -27,6 +32,9 @@ const App = (): ReactElement => {
   };
 
   useEffect(() => {
+    if (window.localStorage.getItem("token")) {
+      setIsAuth(true);
+    }
     fetch("http://localhost:3001/api/countries", { mode: "no-cors" })
       .then((response) => response.json())
       .then(
@@ -46,28 +54,33 @@ const App = (): ReactElement => {
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
-    return (
-      <LangContext.Provider value={contextLang[currentLang]}>
+    console.log(isAuth);
+    if (isAuth) {
+      return (
+        <LangContext.Provider value={contextLang[currentLang]}>
+          <div className="app">
+            <Header switchLang={changeLanguarge} />
+            {/* <Redirect to="/" exact /> */}
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
+              />
+              <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
+            </Switch>
+            <Footer />
+          </div>
+        </LangContext.Provider>
+      );
+    } else {
+      return (
         <div className="app">
-          <Header switchLang={changeLanguarge} />
           <Redirect to="/auth-page" exact />
-          <Switch>
-            <Route
-              path="/auth-page"
-              exact
-              render={() => <AuthPage redirect={() => <Redirect to="/" exact />} lang={currentLang} />}
-            />
-            <Route
-              path="/"
-              exact
-              render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
-            />
-            <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
-          </Switch>
-          <Footer />
+          <Route path="/auth-page" exact render={() => <AuthPage lang={currentLang} handler={authHandler} />} />
         </div>
-      </LangContext.Provider>
-    );
+      );
+    }
   }
 };
 

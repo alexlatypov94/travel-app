@@ -3,14 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = Router();
 const User = require('../models/userSchema');
-const Image = require('../models/imageSchema');
 const Country = require('../models/countrySchema');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const multer = require('multer');
-const imageSchema = require('../models/imageSchema');
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, '../client/public/assets/uploads');
@@ -112,6 +110,7 @@ router.post(
         email: email,
         password: hashedPassword,
         username: username,
+        image: ''
       });
 
       await user.save();
@@ -122,7 +121,10 @@ router.post(
           en: 'User created',
           es: 'Creado por el usuario',
         },
+        email: user.email,
         password: hashedPassword,
+        username: user.username,
+        image: user.image,
       });
     } catch (e) {
       res.status(500).json({
@@ -175,6 +177,8 @@ router.post(
       });
       res.status(201).json({
         token: token,
+        username: user.username,
+        image: user.image,
         message: {
           ru: 'Вы вошли в систему',
           en: 'You enter the system',
@@ -218,7 +222,9 @@ router.post('/save-image', async (req, res, next) => {
           },
         });
       } else {
-        user.image = `${img.path}`.replace(/\\/g, '/');
+        const url = `${img.path}`.replace(/\\/g, '/');
+        user.image = url;
+        console.log(user.image)
         await user.save();
         res.status(200).json({
           message: {
@@ -226,7 +232,7 @@ router.post('/save-image', async (req, res, next) => {
             en: 'Successfully loaded',
             es: 'Cargado exitosamente',
           },
-          url: user.image,
+          url: url,
         });
       }
     }
