@@ -1,9 +1,7 @@
-
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import "./AuthPage.scss";
 
 export const AuthPage = (props: any): ReactElement => {
-
   const mail: any = useRef();
   const psswrd: any = useRef();
   const usrnm: any = useRef();
@@ -26,22 +24,22 @@ export const AuthPage = (props: any): ReactElement => {
   const [isAuth, setIsAuth] = useState(false);
   const userObjText: any = {
     en: "Username",
-    ru: "Èìÿ ïîëüçîâàòåëÿ",
+    ru: "Ð˜Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ",
     es: "Nombre de usuario"
   };
   const passObjText: any = {
     en: "Password",
-    ru: "Ïàðîëü",
+    ru: "ÐŸÐ°Ñ€Ð¾Ð»ÑŒ",
     es: "Contrasena"
   };
   const sendObjText: any = {
     en: "Send",
-    ru: "Îòïðàâèòü",
+    ru: "ÐžÑ‚Ð¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ",
     es: "Enviar"
   };
   const infoObjText: any = {
     en: "Enter your information",
-    ru: "Ââåäèòå èíôîðìàöèþ",
+    ru: "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ",
     es: "Ingrese su informacion"
   };
 
@@ -57,7 +55,6 @@ export const AuthPage = (props: any): ReactElement => {
   };
 
   const postData = () => {
-
     setEmail(mail.current.value);
     setPassword(psswrd.current.value);
     if (isReg) {
@@ -100,7 +97,6 @@ export const AuthPage = (props: any): ReactElement => {
         }),
         headers: { "Content-Type": "application/json" }
       })
-
         .then(
           (resolve) => resolve.json(),
           (reject) => setIsSended(false)
@@ -123,21 +119,17 @@ export const AuthPage = (props: any): ReactElement => {
             setError(false);
             setIsSended(false);
           }
-
         )
         .then(() => {
           setIsSended(false);
           setError(true);
         });
     }
-
   }, [isSended, isLog]);
 
   return (
-
     <div className={"auth-page"} style={{ backgroundColor: bg }}>
       <div className={"chooser"}>
-
         <button className={isReg ? "sign-up active" : "sign-up"} onClick={regMode}>
           Sign up
         </button>
@@ -157,7 +149,6 @@ export const AuthPage = (props: any): ReactElement => {
         <input type="text" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
       </div>
       <div className={"pass"}>
-
         <label htmlFor={"password"}>{passObjText[props.lang]}</label>
         <input type="text" id={"password"} ref={psswrd} placeholder={"Enter password"} />
       </div>
