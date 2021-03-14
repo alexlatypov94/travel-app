@@ -1,0 +1,20 @@
+.country-nav {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  background: rgb(168, 168, 168);
+  border-radius: 1rem;
+  overflow: hidden;
+
+  a {
+    padding: 1rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+
+    &:hover {
+      background: rgb(231, 144, 144);
+    }
+  }
+}

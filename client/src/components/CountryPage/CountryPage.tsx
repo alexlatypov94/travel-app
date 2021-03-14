@@ -1,13 +1,18 @@
+
 import React, { ReactElement, useEffect, useState } from "react";
 import { Preloader } from "../Preloader";
 import { CapitalDate, CurrencyRate, Weather } from "./Widgets";
 import "./CountryPage.scss";
+import { CountryInfoNav, CountryMap, CountryVideo, Sightseeing } from "./CountryInfo";
+import { Redirect, Route } from "react-router";
 
 export const CountryPage = ({ currentCountry }: any): ReactElement => {
+
   const [error, setError] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currencyRates, setCurrencyRates] = useState(undefined);
   const [weatherData, setWeatherData] = useState(undefined);
+  const country: any = JSON.parse(localStorage.getItem("currentCountry"));
 
   useEffect(() => {
     fetch(
@@ -24,17 +29,17 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
           setError(error);
         }
       );
-    fetch("https://openexchangerates.org/api/latest.json?app_id=8f701a3e421348ca9870fb94fb7a39e0")
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setCurrencyRates(result.rates);
-        },
-        (error) => {
-          setError(error);
-        }
-      );
+    // fetch("https://openexchangerates.org/api/latest.json?app_id=8f701a3e421348ca9870fb94fb7a39e0")
+    //   .then((response) => response.json())
+    //   .then(
+    //     (result) => {
+    //       setIsLoaded(true);
+    //       setCurrencyRates(result.rates);
+    //     },
+    //     (error) => {
+    //       setError(error);
+    //     }
+    //   );
   }, []);
 
   if (error) {
@@ -44,11 +49,26 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
   } else {
     return (
       <div className="country-page-wrapper">
-        <div className="info-country"></div>
+        <div className="info-country">
+          <CountryInfoNav />
+          <div className="country-info-wrapper">
+            <Redirect to="/country/map" />
+            <Route path="/country/info" />
+            <Route path="/country/sightseeing" render={() => <Sightseeing currentCountry={currentCountry.countryAttractions || country.countryAttractions} />}/>
+            <Route
+              path="/country/map"
+              render={() => <CountryMap coord={currentCountry.countryCoordinate || country.countryCoordinate} />}
+            />
+            <Route
+              path="/country/video"
+              render={() => <CountryVideo video={currentCountry.countryVideo || country.countryVideo} />}
+            />
+          </div>
+        </div>
         <div className="aside-wrapper">
-          <Weather country={currentCountry} weather={weatherData} />
-          <CapitalDate country={currentCountry} />
-          <CurrencyRate country={currentCountry} rates={currencyRates} />
+          <Weather country={currentCountry || country} weather={weatherData} />
+          <CapitalDate country={currentCountry || country} />
+          {/* <CurrencyRate country={currentCountry} rates={currencyRates} /> */}
         </div>
       </div>
     );
