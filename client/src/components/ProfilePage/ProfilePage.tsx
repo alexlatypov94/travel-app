@@ -1,7 +1,9 @@
 
+
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
 import "./ProfilePage.scss";
+
 
 
 export const ProfilePage = ({ logOutFn }: any): ReactElement => {
@@ -15,6 +17,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   const notUserPhoto: string = "../../../public/assets/img/no-photo.jpg";
 
   const saveImage = (e: any) => {
+  
  
     setIsSended(false);
     setSave(true);
@@ -29,6 +32,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
       setBuffer(buff);
       setIsSended(true);
      
+     
     };
   };
 
@@ -37,9 +41,16 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   };
 
   useEffect(() => {
-    if (isSended) {
+ 
+    if (window.localStorage.getItem("token")) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+    if (isSended || isAuth) {
       fetch("http://localhost:3001/api/save-image", {
         method: "POST",
+    
   
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -49,6 +60,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
         })
       })
         .then((resolve) => resolve.json())
+     
    
         .then((data: any) => {
           if (data.url === "") {
@@ -68,6 +80,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   }, [isSended]);
 
   return (
+    
    
     <>
       {window.localStorage.username ? (
@@ -80,6 +93,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
       <div className="main-info">
         <img className="user-photo" src={imgSrc} alt="" />
       </div>
+
 
       <div className="input__wrapper">
         <input

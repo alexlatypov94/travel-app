@@ -11,10 +11,12 @@ export const Main = (props: any): ReactElement => {
   };
 
   return (
+    
  
     <main className="container">
       <p className="user-wrapper-description">{MAIN_DESCRIPTIONS[currentLang]}</p>
       <div className="main-content">
+     
       
         <ProfilePage />
         {/* <div className="user-wrapper">

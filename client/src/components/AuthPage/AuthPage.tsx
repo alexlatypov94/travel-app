@@ -80,14 +80,17 @@ export const AuthPage = (props: any): ReactElement => {
     })
       .then((res) => res.json())
       .then((data) => {
+   
 
         return data.answer ? props.handler(true) : props.handler(false);
       });
 
     if (isLog) {
      
+     
       setBg("rgba(241, 186, 231, 0.534)");
     } else {
+   
    
       setBg("rgba(240, 239, 189, 0.534)");
     }
@@ -115,6 +118,7 @@ export const AuthPage = (props: any): ReactElement => {
               setIsEntry(true);
               if (isLog) {
                 window.localStorage.setItem("token", data.token);
+      
         
               }
               window.localStorage.setItem("usermail", email);
@@ -150,22 +154,26 @@ export const AuthPage = (props: any): ReactElement => {
       {isReg && (
         <div className={"username"}>
           <label htmlFor={"username"}>{userObjText[props.lang]}</label>
+     
       
           <input type="email" id={"username"} ref={usrnm} placeholder={"Enter username"} />
         </div>
       )}
       <div className={"mail"}>
         <label htmlFor={"mail"}>E-mail</label>
+   
 
         <input type="email" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
       </div>
       <div className={"pass"}>
         <label htmlFor={"password"}>{passObjText[props.lang]}</label>
+     
 
         <input type="password" id={"password"} ref={psswrd} placeholder={"Enter password"} />
       </div>
 
       <input type="submit" className={"submit-btn"} onClick={postData} value={sendObjText[props.lang]} />
+     
   
       {!isReg && (
         <a href="#" className="without-reg" onClick={handlerWithoutReg}>

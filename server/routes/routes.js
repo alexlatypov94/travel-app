@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = Router();
 const User = require('../models/userSchema');
+
 const Country = require('../models/countrySchema');
 // const marksSchema = require('./models/marksSchema');
 const { check, validationResult } = require('express-validator');
@@ -10,6 +11,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const multer = require('multer');
+
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, '../client/public/assets/uploads');
@@ -39,6 +41,7 @@ router.get('/countries', async (req, res) => {
 router.post('/auth', async (req, res) => {
   try {
     const { token } = req.body;
+ 
     if (token) {
       res.status(201).json({
         message: {
@@ -109,6 +112,7 @@ router.post(
       const user = new User({
         email: email,
         password: hashedPassword,
+    
         username: username,        image: '',
         marks: {
           australia: '0',
@@ -124,6 +128,7 @@ router.post(
           tunis: '0',
           turkey: '0'
         }
+        image: ''
       });
 
       await user.save();
@@ -212,6 +217,7 @@ router.post(
 
 router.post('/save-image', async (req, res, next) => {
   try {
+
  
     if (!req.body) {
       res.status(500).json({
@@ -222,6 +228,7 @@ router.post('/save-image', async (req, res, next) => {
         },
       });
     } else {
+
 
       const { email, image, save } = req.body;
       const user = await User.findOne({ email: email });
@@ -235,6 +242,7 @@ router.post('/save-image', async (req, res, next) => {
           },
         });
       } else {
+
       
         if (save === true) {
           user.image = url;
@@ -246,6 +254,7 @@ router.post('/save-image', async (req, res, next) => {
             en: 'Successfully loaded',
             es: 'Cargado exitosamente',
           },
+       
          
           url: url,
         });
@@ -254,6 +263,7 @@ router.post('/save-image', async (req, res, next) => {
   } catch (e) {
     res.status(400).json({
       message: {
+ 
      
         ru: `Ошибка при добавлении картинки в базу данных`,
         en: `Error adding picture to database`,

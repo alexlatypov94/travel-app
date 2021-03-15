@@ -84,7 +84,6 @@ export const MONTHS: any = {
     11: "Diciembre"
   }
 };
-
 export const COUNTRY_PAGE_NAV: any = {
   info: {
     en: "country info",

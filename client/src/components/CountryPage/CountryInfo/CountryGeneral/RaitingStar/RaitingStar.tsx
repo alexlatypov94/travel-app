@@ -1,6 +1,8 @@
+
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import "./RaitingStar.scss";
 import { ISwitchLang, LangContext, MARKS } from "../../../../../core";
+
 
 export const RatingStar = (props: any): ReactElement => {
   const lang: any = useContext(LangContext);
@@ -30,8 +32,11 @@ export const RatingStar = (props: any): ReactElement => {
       });
   });
 
+  const lang: any = useContext(LangContext);
+
   return (
     <div className="rating-area">
+     
       <input type="radio" id="star-5" name="rating" value="5" onClick={postMark} />
       <label htmlFor="star-5" title={`${MARKS[lang]}«5»`}></label>
       <input type="radio" id="star-4" name="rating" value="4" onClick={postMark} />
