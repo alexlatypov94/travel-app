@@ -20,3 +20,15 @@
 .ReactGridGallery_tile-description {
   background: transparent;
 }
+
+@media (max-width: 1079px) {
+  .ReactGridGallery_tile {
+    width: 210px;
+  }
+}
+
+@media (max-width: 699px) {
+  .ReactGridGallery_tile {
+    width: auto;
+  }
+}

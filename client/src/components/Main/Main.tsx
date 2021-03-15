@@ -14,8 +14,6 @@ export const Main = (props: any): ReactElement => {
       <p className="user-wrapper-description">{MAIN_DESCRIPTIONS[currentLang]}</p>
       <div className="main-content">
         <div className="user-wrapper">
-          {/* <h1 className="user-name">Aliaksei</h1>
-          <img className="user-photo" src="./../../../public/assets/img/photo.png" alt="" /> */}
           <ProfilePage />
         </div>
 

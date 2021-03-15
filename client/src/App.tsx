@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useState } from "react";
-import { Footer, Header, Main, AuthPage, ProfilePage } from "./components";
+import { Footer, Header, Main, AuthPage } from "./components";
 
 import { Redirect, Route, Switch } from "react-router";
 import { LangContext, contextLang } from "./core";
@@ -14,6 +14,7 @@ const App = (): ReactElement => {
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isAuth, setIsAuth] = useState(false);
+  const [countriesName, setCountriesName] = useState([]);
 
   const authHandler = (bool) => {
     setIsAuth(bool);
@@ -41,6 +42,11 @@ const App = (): ReactElement => {
         (result) => {
           setIsLoaded(true);
           setCountriesArr(result);
+          setCountriesName(
+            result.map((el) => {
+              return el.country;
+            })
+          );
         },
         (error) => {
           setIsLoaded(true);
@@ -54,13 +60,12 @@ const App = (): ReactElement => {
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
-    console.log(isAuth);
     if (isAuth) {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
-            <Header switchLang={changeLanguarge} />
-            {/* <Redirect to="/" exact /> */}
+            <Header switchLang={changeLanguarge} countriesName={countriesName} />
+            <Redirect to="/" exact />
             <Switch>
               <Route
                 path="/"

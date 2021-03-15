@@ -1,10 +1,12 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
 import "./ProfilePage.scss";
 
 export const ProfilePage = (): ReactElement => {
   const [isSended, setIsSended] = useState(false);
   const [imgSrc, setImgSrc] = useState("../../../public/assets/img/no-photo.jpg");
   const [form, setForm] = useState(undefined);
+  const lang: any = useContext(LangContext);
 
   const saveImage = (e: any) => {
     if (e.target.files.length > 0) {
@@ -36,13 +38,35 @@ export const ProfilePage = (): ReactElement => {
   return (
     <>
       {window.localStorage.username ? (
-        <h1 className="user-name">Hello, {window.localStorage.username}</h1>
+        <h1 className="user-name">
+          {HELLO[lang]}, {window.localStorage.username}
+        </h1>
       ) : (
         <input type="text" />
       )}
       <div className="main-info">
         <img className="user-photo" src={imgSrc} alt="" />
-        <input type="file" onChange={saveImage} accept="image/jpeg,image/png,image/jpg" />
+      </div>
+      <div className="input__wrapper">
+        <input
+          type="file"
+          onChange={saveImage}
+          accept="image/jpeg,image/png,image/jpg"
+          id="input__file"
+          className="input input__file"
+          multiple
+        />
+        <label htmlFor="input__file" className="input__file-button">
+          <span className="input__file-icon-wrapper">
+            <img
+              className="input__file-icon"
+              src="./../../public/assets/img/download.svg"
+              alt="Выбрать файл"
+              width="25"
+            />
+          </span>
+          <span className="input__file-button-text">{CHOOSE_FILE[lang]}</span>
+        </label>
       </div>
     </>
   );

@@ -3,11 +3,18 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 2rem 0;
+  .header-globe-nav {
+    background: none;
+    width: 4rem;
+    height: 4rem;
+  }
   .header-globe-logo {
+    pointer-events: none;
     width: 4rem;
   }
 
   .header-search-field {
+    position: relative;
     width: 40%;
     input {
       font-size: 1.6rem;
@@ -17,6 +24,28 @@ header {
       border: 2px solid rgba(151, 148, 148, 0.7);
       border-radius: 2rem;
       background: rgba(255, 255, 255, 0.747);
+    }
+
+    .search-list {
+      position: absolute;
+      z-index: 10;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background: rgba(255, 255, 255, 0.726);
+      font-size: 2rem;
+      border-radius: 1rem;
+      color: #000;
+      text-transform: uppercase;
+      overflow: hidden;
+      .search-list-item {
+        padding: 1rem 2rem;
+
+        &:hover {
+          background: #fff;
+        }
+      }
     }
   }
 
