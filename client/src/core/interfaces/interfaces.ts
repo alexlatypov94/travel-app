@@ -1,5 +1,5 @@
 export interface ISwitchLang {
-  en: string;
-  ru: string;
-  es: string;
+  en: string | any;
+  ru: string | any;
+  es: string | any;
 }

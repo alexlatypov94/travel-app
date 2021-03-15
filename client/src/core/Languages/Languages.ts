@@ -150,3 +150,15 @@ export const READ_MORE: any = {
   ru: "читать далее",
   es: "leer más"
 };
+
+export const MARKS: ISwitchLang = {
+  en: "Mark",
+  ru: "Оценка",
+  es: "Evaluación"
+};
+
+export const SHOW_BTN: ISwitchLang = {
+  en: "Show ratings",
+  ru: "Показать оценки",
+  es: "Mostrar calificaciones"
+};

@@ -1,3 +1,4 @@
+
 import React, { ReactElement, useEffect, useState } from "react";
 import { Footer, Header, Main, AuthPage } from "./components";
 
@@ -12,8 +13,7 @@ const App = (): ReactElement => {
   const [countriesArr, setCountriesArr] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(undefined);
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("");  const [isAuth, setIsAuth] = useState(false);
   const [countriesSlider, setCountriesSlider] = useState([]);
   const [news, setNews] = useState([]);
   const localnews: any = JSON.parse(localStorage.getItem("news"));
@@ -97,6 +97,7 @@ const App = (): ReactElement => {
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
+
     if (isAuth) {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
@@ -124,13 +125,16 @@ const App = (): ReactElement => {
     } else {
       return (
         <div className="app">
+        
           <Redirect to="/auth-page" exact />
+        
           <Route
             path="/auth-page"
             exact
             render={() => <AuthPage lang={currentLang} handler={authHandler} withoutRegFn={handlerWithoutReg} />}
           />
         </div>
+   
       );
     }
   }

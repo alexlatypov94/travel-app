@@ -22,7 +22,8 @@ const userSchema = new Schema({
   },
   username: {
     type: String
-  }
+  },
+  marks: {Object}
 });
 
 module.exports = model('User', userSchema);
