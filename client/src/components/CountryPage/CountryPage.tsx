@@ -1,4 +1,5 @@
 
+
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Preloader } from "../Preloader";
 import { CapitalDate, CurrencyRate, Weather } from "./Widgets";
@@ -17,6 +18,7 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
 
   useEffect(() => {
     fetch(
+
   
       `https://api.openweathermap.org/data/2.5/forecast?q=${country.capital.en}&units=metric&lang=${lang}&cnt=1&appid=29918b5a8934d94ee39687dc33c08b84`
     )
@@ -45,6 +47,7 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
         }
       );
 
+
   }, [lang]);
 
   if (error) {
@@ -53,15 +56,19 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
     return <Preloader />;
   } else {
     return (
+     
 
       <div className="country-page-wrapper container">
         <div className="info-country">
+     
       
           <CountryInfoNav country={currentCountry} />
           <div className="country-info-wrapper">
+           
      
             <Redirect to={`/country/:${currentCountry.country}/info`} />
             <Route
+              
                         path={`/country/:${currentCountry.country}/info`}
               render={() => <CountryGeneral country={currentCountry || country} />}
             />
@@ -72,11 +79,13 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
               )}
             />
             <Route
+           
 
               path={`/country/:${currentCountry.country}/map`}
               render={() => <CountryMap country={currentCountry || country} />}
             />
             <Route
+             
             
               path={`/country/:${currentCountry.country}/video`}
               render={() => <CountryVideo video={currentCountry.countryVideo || country.countryVideo} />}
@@ -86,6 +95,7 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
         <div className="aside-wrapper">
           <Weather country={currentCountry || country} weather={weatherData} />
           <CapitalDate country={currentCountry || country} />
+      
    
           <CurrencyRate country={currentCountry || country} rates={currencyRates} />
         </div>

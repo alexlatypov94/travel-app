@@ -112,8 +112,11 @@ router.post(
       const user = new User({
         email: email,
         password: hashedPassword,
+ 
     
-        username: username,        image: '',
+        username: username,
+     
+        image: '',
         marks: {
           australia: '0',
           cuba: '0',
@@ -128,7 +131,6 @@ router.post(
           tunis: '0',
           turkey: '0'
         }
-        image: ''
       });
 
       await user.save();
@@ -228,6 +230,7 @@ router.post('/save-image', async (req, res, next) => {
         },
       });
     } else {
+   
 
 
       const { email, image, save } = req.body;
@@ -242,6 +245,7 @@ router.post('/save-image', async (req, res, next) => {
           },
         });
       } else {
+      
 
       
         if (save === true) {
@@ -254,6 +258,7 @@ router.post('/save-image', async (req, res, next) => {
             en: 'Successfully loaded',
             es: 'Cargado exitosamente',
           },
+        
        
          
           url: url,
@@ -263,6 +268,7 @@ router.post('/save-image', async (req, res, next) => {
   } catch (e) {
     res.status(400).json({
       message: {
+      
  
      
         ru: `Ошибка при добавлении картинки в базу данных`,

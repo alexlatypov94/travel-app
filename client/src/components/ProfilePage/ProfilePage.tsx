@@ -1,8 +1,10 @@
 
 
+
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
 import "./ProfilePage.scss";
+
 
 
 
@@ -11,6 +13,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   const [isSended, setIsSended] = useState(true);
   const [imgSrc, setImgSrc] = useState("");
   const [buffer, setBuffer] = useState("");
+
   const [save, setSave] = useState(false);
   const lang: any = useContext(LangContext);
 
@@ -25,12 +28,15 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
     const fr: FileReader = new FileReader();
     fr.readAsDataURL(image);
     let buff: any;
+
     fr.onload = () => {
       const imageField: any = new Image();
       imageField.src = fr.result;
       buff = fr.result;
       setBuffer(buff);
+   
       setIsSended(true);
+ 
      
      
     };
@@ -41,6 +47,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   };
 
   useEffect(() => {
+    
  
     if (window.localStorage.getItem("token")) {
       setIsAuth(true);
@@ -56,6 +63,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
         body: JSON.stringify({
           email: window.localStorage.getItem("usermail"),
           image: buffer,
+    
           save: save
         })
       })
@@ -63,6 +71,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
      
    
         .then((data: any) => {
+     
           if (data.url === "") {
             setImgSrc(notUserPhoto);
           } else {
@@ -80,6 +89,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   }, [isSended]);
 
   return (
+   
     
    
     <>
@@ -93,6 +103,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
       <div className="main-info">
         <img className="user-photo" src={imgSrc} alt="" />
       </div>
+
 
 
       <div className="input__wrapper">
