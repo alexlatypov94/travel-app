@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polygon, FeatureGroup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Polygon, FeatureGroup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet-fullscreen/dist/Leaflet.fullscreen";
@@ -12,7 +12,7 @@ import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import { POLYGONS } from "./../../../../core";
 
 export const CountryMap = (props: any): ReactElement => {
-  const reArea: Array<Array<number>> = POLYGONS[props.country.country].map((element: Array<number>) => {
+  const reArea: Array<Array<number>> = POLYGONS[props?.country?.country].map((element: Array<number>) => {
     const array: Array<number> = [];
     element.map((x) => array.unshift(x));
     return array;

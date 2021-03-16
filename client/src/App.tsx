@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Footer, Header, Main, AuthPage } from "./components";
 
 import { Redirect, Route, Switch } from "react-router";
@@ -14,7 +14,7 @@ const App = (): ReactElement => {
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isAuth, setIsAuth] = useState(false);
-  const [countriesName, setCountriesName] = useState([]);
+  const [countriesSlider, setCountriesSlider] = useState([]);
 
   const authHandler = (bool) => {
     setIsAuth(bool);
@@ -32,6 +32,16 @@ const App = (): ReactElement => {
     localStorage.setItem("currentCountry", JSON.stringify(country));
   };
 
+  const handlerFilter = (value: string) => {
+    setCountriesSlider(
+      countriesArr.filter((el: any) => {
+        const countryNameLowerCase: string = el?.countryName[currentLang].toLowerCase();
+        const capitalNameLowerCase: string = el?.capital[currentLang].toLowerCase();
+        return countryNameLowerCase.includes(value.toLowerCase()) || capitalNameLowerCase.includes(value.toLowerCase());
+      })
+    );
+  };
+
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       setIsAuth(true);
@@ -42,11 +52,7 @@ const App = (): ReactElement => {
         (result) => {
           setIsLoaded(true);
           setCountriesArr(result);
-          setCountriesName(
-            result.map((el) => {
-              return el.country;
-            })
-          );
+          setCountriesSlider(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -64,13 +70,13 @@ const App = (): ReactElement => {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
-            <Header switchLang={changeLanguarge} countriesName={countriesName} />
+            <Header switchLang={changeLanguarge} filterFn={handlerFilter} />
             <Redirect to="/" exact />
             <Switch>
               <Route
                 path="/"
                 exact
-                render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
+                render={() => <Main countries={countriesSlider} fnClickCountry={handlerClickCurrentCountry} />}
               />
               <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
             </Switch>

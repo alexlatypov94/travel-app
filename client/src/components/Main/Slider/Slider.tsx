@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Slider from "react-slick";
 import { LangContext } from "./../../../core";

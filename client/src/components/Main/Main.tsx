@@ -9,9 +9,10 @@ export const Main = (props: any): ReactElement => {
   const handlerClickCountry = (e: string) => {
     props.fnClickCountry(e);
   };
+
   return (
     <main className="container">
-      <p className="user-wrapper-description">{MAIN_DESCRIPTIONS[currentLang]}</p>
+      <p className="user-wrapper-description">{MAIN_DESCRIPTIONS.[currentLang]}</p>
       <div className="main-content">
         <div className="user-wrapper">
           <ProfilePage />
