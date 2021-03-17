@@ -3,7 +3,7 @@ import { ISwitchLang, LangContext, SHOW_BTN } from "../../../../../core";
 import "./CountryLadder.scss";
 
 export const CountryLadder = (props: any): ReactElement => {
-  const urlGet: string = "http://localhost:3001/api/get-marks";
+  const urlGet: string = "https://cryptic-lake-86056.herokuapp.com/get-marks";
   const [dataArray, setDataArray] = useState(undefined);
   const [isShow, setIsShow] = useState(false);
   const lang: any = useContext(LangContext);
@@ -17,9 +17,9 @@ export const CountryLadder = (props: any): ReactElement => {
     fetch(urlGet)
       .then((res) => res.json())
       .then((data) => {
-        const newArr = data.arr.filter((el) => el.marks[props.countryName] !== "");
-        setDataArray(newArr);
-        if (dataArray) {
+        if (data.arr) {
+          const newArr: any = data.arr.filter((el: any) => el.marks[props.countryName] !== "");
+          setDataArray(newArr);
           const find: Object = data.arr.find((el: any) => el.username === window.localStorage.getItem("username"));
           props.data(find.marks[props.countryName]);
         }

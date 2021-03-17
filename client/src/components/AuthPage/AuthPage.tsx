@@ -5,10 +5,10 @@ export const AuthPage = (props: any): ReactElement => {
   const mail: any = useRef();
   const psswrd: any = useRef();
   const usrnm: any = useRef();
-  const regUrl: string = "http://localhost:3001/api/register";
-  const logUrl: string = "http://localhost:3001/api/login";
+  const regUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/register";
+  const logUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/login";
 
-  const autUrl: string = "http://localhost:3001/api/auth";
+  const autUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/auth";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(undefined);
   const [username, setUsername] = useState("anonimuser");
@@ -80,18 +80,12 @@ export const AuthPage = (props: any): ReactElement => {
     })
       .then((res) => res.json())
       .then((data) => {
-   
-
         return data.answer ? props.handler(true) : props.handler(false);
       });
 
     if (isLog) {
-     
-     
       setBg("rgba(241, 186, 231, 0.534)");
     } else {
-   
-   
       setBg("rgba(240, 239, 189, 0.534)");
     }
     if (isSended) {
@@ -118,8 +112,6 @@ export const AuthPage = (props: any): ReactElement => {
               setIsEntry(true);
               if (isLog) {
                 window.localStorage.setItem("token", data.token);
-      
-        
               }
               window.localStorage.setItem("usermail", email);
               window.localStorage.setItem("username", data.username);
@@ -154,27 +146,23 @@ export const AuthPage = (props: any): ReactElement => {
       {isReg && (
         <div className={"username"}>
           <label htmlFor={"username"}>{userObjText[props.lang]}</label>
-     
-      
+
           <input type="email" id={"username"} ref={usrnm} placeholder={"Enter username"} />
         </div>
       )}
       <div className={"mail"}>
         <label htmlFor={"mail"}>E-mail</label>
-   
 
         <input type="email" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
       </div>
       <div className={"pass"}>
         <label htmlFor={"password"}>{passObjText[props.lang]}</label>
-     
 
         <input type="password" id={"password"} ref={psswrd} placeholder={"Enter password"} />
       </div>
 
       <input type="submit" className={"submit-btn"} onClick={postData} value={sendObjText[props.lang]} />
-     
-  
+
       {!isReg && (
         <a href="#" className="without-reg" onClick={handlerWithoutReg}>
           continue without registration

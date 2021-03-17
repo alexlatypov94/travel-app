@@ -1,73 +1,59 @@
-
-const { Router } = require("express");
-const express = require("express");
-const mongoose = require("mongoose");
+const { Router } = require('express');
+const express = require('express');
+const mongoose = require('mongoose');
 const router = Router();
-
-
 const User = require('../models/userSchema');
-
 const Country = require('../models/countrySchema');
-
-
-const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const multer = require("multer");
-
+const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const multer = require('multer');
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-   
-    cb(null, "../client/public/assets/uploads");
+    cb(null, '../client/public/assets/uploads');
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
   },
 });
 
+router.use(multer({ storage: storageConfig }).single('file'));
 
-router.use(multer({ storage: storageConfig }).single("file"));
-
-
-router.get("/countries", async (req, res) => {
+router.get('/countries', async (req, res) => {
   try {
     const countries = await Country.find();
     res.send(countries);
   } catch (e) {
     res.status(404).json({
       message: {
-      
-        ru: "База данных не найдена",
-        en: "Database is not found",
-        es: "База данных не найдена",
+        ru: 'База данных не найдена',
+        en: 'Database is not found',
+        es: 'База данных не найдена',
       },
     });
   }
 });
 
-
-router.post("/auth", async (req, res) => {
+router.post('/auth', async (req, res) => {
   try {
     const { token } = req.body;
- 
+
     if (token) {
       res.status(201).json({
         message: {
-   
-          en: "Logging in...",
-          ru: "Выполняется вход...",
-          es: "Iniciando sesión...",
+          en: 'Logging in...',
+          ru: 'Выполняется вход...',
+          es: 'Iniciando sesión...',
         },
         answer: true,
       });
     } else {
       res.status(201).json({
         message: {
-        
-          en: "Logging in...",
-          ru: "Выполняется вход...",
-          es: "Iniciando sesión...",
+          en: 'Logging in...',
+          ru: 'Выполняется вход...',
+          es: 'Iniciando sesión...',
         },
         answer: false,
       });
@@ -85,12 +71,10 @@ router.post("/auth", async (req, res) => {
 });
 
 router.post(
-
-  "/register",
+  '/register',
   [
-
-    check("email", "Incorrect e-mail").isEmail(),
-    check("password", "Minimal password length of symbols is 6").isLength({
+    check('email', 'Incorrect e-mail').isEmail(),
+    check('password', 'Minimal password length of symbols is 6').isLength({
       min: 6,
     }),
   ],
@@ -101,10 +85,9 @@ router.post(
         res.status(400).json({
           errors: errors.array(),
           message: {
-    
-            ru: "Введены неверные данные",
-            en: "Incorrect register inputs",
-            es: "Se ingresaron datos no válidos",
+            ru: 'Введены неверные данные',
+            en: 'Incorrect register inputs',
+            es: 'Se ingresaron datos no válidos',
           },
         });
       }
@@ -115,10 +98,9 @@ router.post(
       if (candidate)
         res.status(400).json({
           message: {
-     
-            ru: "Пользователь уже существует",
-            en: "This user is exist",
-            es: "El usuario ya existe",
+            ru: 'Пользователь уже существует',
+            en: 'This user is exist',
+            es: 'El usuario ya existe',
           },
         });
 
@@ -127,27 +109,21 @@ router.post(
       const user = new User({
         email: email,
         password: hashedPassword,
- 
-    
         username: username,
-    
- 
-     
         image: '',
         marks: {
-     
-          australia: "",
-          cuba: "",
-          egypt: "",
-          england: "",
-          greece: "",
-          italy: "",
-          mexico: "",
-          portugal: "",
-          spain: "",
-          thailand: "",
-          tunis: "",
-          turkey: "",
+          australia: '',
+          cuba: '',
+          egypt: '',
+          england: '',
+          greece: '',
+          italy: '',
+          mexico: '',
+          portugal: '',
+          spain: '',
+          thailand: '',
+          tunis: '',
+          turkey: '',
         },
       });
 
@@ -155,10 +131,9 @@ router.post(
 
       res.status(201).json({
         message: {
-        
-          ru: "Пользователь создан",
-          en: "User created",
-          es: "Creado por el usuario",
+          ru: 'Пользователь создан',
+          en: 'User created',
+          es: 'Creado por el usuario',
         },
         email: user.email,
         password: hashedPassword,
@@ -169,10 +144,9 @@ router.post(
       res.status(500).json({
         error: e,
         message: {
-       
-          ru: "Что-то пошло не так, попробуйте позже",
-          en: "Something wrong, try to repeat later",
-          es: "Algo salió mal. Vuelve a intentarlo más tarde.",
+          ru: 'Что-то пошло не так, попробуйте позже',
+          en: 'Something wrong, try to repeat later',
+          es: 'Algo salió mal. Vuelve a intentarlo más tarde.',
         },
       });
     }
@@ -180,12 +154,10 @@ router.post(
 );
 
 router.post(
-
-  "/login",
+  '/login',
   [
-
-    check("email", "Enter the correct e-mail").normalizeEmail().isEmail(),
-    check("password", "Password exists").exists(),
+    check('email', 'Enter the correct e-mail').normalizeEmail().isEmail(),
+    check('password', 'Password exists').exists(),
   ],
   async (req, res) => {
     try {
@@ -193,10 +165,9 @@ router.post(
       if (!errors.isEmpty()) {
         res.status(401).json({
           message: {
-    
-            ru: "Неверный пароль и e-mail при входе",
-            en: "Incorrect email or password to entry",
-            es: "Contraseña y correo electrónico incorrectos al iniciar sesión",
+            ru: 'Неверный пароль и e-mail при входе',
+            en: 'Incorrect email or password to entry',
+            es: 'Contraseña y correo electrónico incorrectos al iniciar sesión',
           },
         });
       }
@@ -209,91 +180,72 @@ router.post(
       if (!isMatch) {
         res.status(400).json({
           message: {
-   
-            ru: "Неверный пароль",
-            en: "Invalid password",
-            es: "Contraseña invalida",
+            ru: 'Неверный пароль',
+            en: 'Invalid password',
+            es: 'Contraseña invalida',
           },
         });
       }
- 
-      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
-        expiresIn: "1h",
+
+      const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {
+        expiresIn: '1h',
       });
       res.status(201).json({
         token: token,
         username: user.username,
         image: user.image,
         message: {
-   
-          ru: "Вы вошли в систему",
-          en: "You enter the system",
-          es: "Estás conectado",
+          ru: 'Вы вошли в систему',
+          en: 'You enter the system',
+          es: 'Estás conectado',
         },
       });
     } catch (e) {
       res.status(500).json({
         message: {
-   
-          ru: "Что-то пошло не так, попробуйте позже",
-          en: "Something wrong, try to repeat later",
-          es: "Algo salió mal. Vuelve a intentarlo más tarde.",
+          ru: 'Что-то пошло не так, попробуйте позже',
+          en: 'Something wrong, try to repeat later',
+          es: 'Algo salió mal. Vuelve a intentarlo más tarde.',
         },
       });
     }
   }
 );
 
-
-router.post("/save-image", async (req, res, next) => {
+router.post('/save-image', async (req, res, next) => {
   try {
-
- 
     if (!req.body) {
       res.status(500).json({
         message: {
-      
-          ru: "Ошибка при загрузке файла",
-          en: "Error loading file",
-          es: "Error al cargar el archivo",
+          ru: 'Ошибка при загрузке файла',
+          en: 'Error loading file',
+          es: 'Error al cargar el archivo',
         },
       });
     } else {
-   
-
-
       const { email, image, save } = req.body;
       const user = await User.findOne({ email: email });
       const url = image;
       if (!user) {
         res.status(401).json({
           message: {
-      
-            ru: "Пользователь не найден",
-            en: "User not found",
-            es: "No se encuentra el usuario",
+            ru: 'Пользователь не найден',
+            en: 'User not found',
+            es: 'No se encuentra el usuario',
           },
         });
       } else {
-      
-
-      
         if (save === true) {
           user.image = url;
           await user.save();
         }
         res.status(200).json({
           message: {
-       
-            ru: "Успешно загружено",
-            en: "Successfully loaded",
-            es: "Cargado exitosamente",
+            ru: 'Успешно загружено',
+            en: 'Successfully loaded',
+            es: 'Cargado exitosamente',
           },
-    
-    
-        
-       
-         
+
           url: url,
         });
       }
@@ -301,53 +253,45 @@ router.post("/save-image", async (req, res, next) => {
   } catch (e) {
     res.status(400).json({
       message: {
-      
- 
-     
         ru: `Ошибка при добавлении картинки в базу данных`,
         en: `Error adding picture to database`,
 
-        es: "Error al agregar una imagen a la base de datos",
+        es: 'Error al agregar una imagen a la base de datos',
       },
     });
   }
 });
 
-
-router.get("/get-marks", async (req, res) => {
+router.get('/get-marks', async (req, res) => {
   try {
     const usersData = await User.find({}, { marks: 1, username: 1 });
     res.status(200).json({
       message: {
-
-        ru: "Успешно загружено",
-        en: "Successfully loaded",
-        es: "Cargado exitosamente",
+        ru: 'Успешно загружено',
+        en: 'Successfully loaded',
+        es: 'Cargado exitosamente',
       },
       arr: usersData,
     });
   } catch (e) {
     res.status(404).json({
       message: {
-       
-        ru: "База данных не найдена",
-        en: "Database is not found",
-        es: "База данных не найдена",
+        ru: 'База данных не найдена',
+        en: 'Database is not found',
+        es: 'База данных не найдена',
       },
     });
   }
 });
 
-
-router.post("/send-mark", async (req, res) => {
+router.post('/send-mark', async (req, res) => {
   try {
     if (!req.body) {
       res.status(500).json({
         message: {
-     
-          ru: "Ошибка при загрузке файла",
-          en: "Error loading file",
-          es: "Error al cargar el archivo",
+          ru: 'Ошибка при загрузке файла',
+          en: 'Error loading file',
+          es: 'Error al cargar el archivo',
         },
       });
     } else {
@@ -357,27 +301,24 @@ router.post("/send-mark", async (req, res) => {
       if (!user) {
         res.status(401).json({
           message: {
-    
-            ru: "Пользователь не найден",
-            en: "User not found",
-            es: "No se encuentra el usuario",
+            ru: 'Пользователь не найден',
+            en: 'User not found',
+            es: 'No se encuentra el usuario',
           },
         });
       } else {
         user.marks[country] = String(mark);
-        console.log(user);
         await user.save();
       }
       res.status(200).json({
         message: {
-     
-          ru: "Успешно загружено",
-          en: "Successfully loaded",
-          es: "Cargado exitosamente",
+          ru: 'Успешно загружено',
+          en: 'Successfully loaded',
+          es: 'Cargado exitosamente',
         },
         mark: user.marks[country],
         countries: user.marks,
-   
+
         country: country,
       });
     }
@@ -386,8 +327,7 @@ router.post("/send-mark", async (req, res) => {
       message: {
         ru: `Ошибка при сохранении оценки в базе данных${e}`,
         en: `Error saving mark to database${e}`,
-      
-        es: "Error al guardar la calificación en la base de datos",
+        es: 'Error al guardar la calificación en la base de datos',
       },
     });
   }

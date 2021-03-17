@@ -1,4 +1,3 @@
-
 import React, { ReactElement, useEffect, useState } from "react";
 import { Footer, Header, Main, AuthPage } from "./components";
 
@@ -14,7 +13,7 @@ const App = (): ReactElement => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(undefined);
 
-  const [selectedCountry, setSelectedCountry] = useState("");  const [isAuth, setIsAuth] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [countriesSlider, setCountriesSlider] = useState([]);
   const [news, setNews] = useState([]);
   const localnews: any = JSON.parse(localStorage.getItem("news"));
@@ -59,7 +58,7 @@ const App = (): ReactElement => {
     if (window.localStorage.getItem("token")) {
       setIsAuth(true);
     }
-    fetch("http://localhost:3001/api/countries", { mode: "no-cors" })
+    fetch("https://cryptic-lake-86056.herokuapp.com/countries")
       .then((response) => response.json())
       .then(
         (result) => {
@@ -92,20 +91,16 @@ const App = (): ReactElement => {
       );
   }, [currentLang]);
 
-  console.log(news);
-
   if (error) {
     return <div>Error: {error?.message}</div>;
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
-
-
     if (isAuth) {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
-            <Header switchLang={changeLanguarge} filterFn={handlerFilter} worldNews={news.data || localnews.data} />
+            <Header switchLang={changeLanguarge} filterFn={handlerFilter} worldNews={news.data} />
             <Redirect to="/" exact />
             <Switch>
               <Route
@@ -128,19 +123,14 @@ const App = (): ReactElement => {
     } else {
       return (
         <div className="app">
-       
-        
           <Redirect to="/auth-page" exact />
-         
-        
+
           <Route
             path="/auth-page"
             exact
             render={() => <AuthPage lang={currentLang} handler={authHandler} withoutRegFn={handlerWithoutReg} />}
           />
         </div>
-  
-   
       );
     }
   }
