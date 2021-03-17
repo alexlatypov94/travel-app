@@ -5,10 +5,10 @@ export const AuthPage = (props: any): ReactElement => {
   const mail: any = useRef();
   const psswrd: any = useRef();
   const usrnm: any = useRef();
-  const regUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/register";
-  const logUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/login";
+  const regUrl: string = "https://cryptic-lake-86056.herokuapp.com/register";
+  const logUrl: string = "https://cryptic-lake-86056.herokuapp.com/login";
 
-  const autUrl: string = "https://cryptic-lake-86056.herokuapp.com/api/auth";
+  const autUrl: string = "https://cryptic-lake-86056.herokuapp.com/auth";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(undefined);
   const [username, setUsername] = useState("anonimuser");

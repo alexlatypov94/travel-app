@@ -1,6 +1,6 @@
 module.exports = {
   setupFiles: ["raf/polyfill", "<rootDir>/setupTests.js"],
-  collectCoverageFrom: ["**/*.{ts,tsx}", "!**/index.tsx"],
+  collectCoverageFrom: ["**/*.{ts,tsx}", "!**/index.tsx", "!**/constant*.ts"],
   coverageDirectory: "<rootDir>/coverage/",
   coverageThreshold: {
     global: {
@@ -11,6 +11,9 @@ module.exports = {
     }
   },
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
+  moduleNameMapper: {
+    "^.+\\.(css|scss|png)$": "identity-obj-proxy"
+  },
   reporters: [
     "default",
     [

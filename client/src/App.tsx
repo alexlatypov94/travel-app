@@ -75,7 +75,7 @@ const App = (): ReactElement => {
 
   useEffect(() => {
     fetch(
-      `https://api.thenewsapi.com/v1/news/top?api_token=joEREGzXgr5XRsIHFOrm22tB1sIc5yLv3cBpimKe&language=${currentLang}&categories=travel,tech&published_after=2021-03-10`
+      `https://api.thenewsapi.com/v1/news/top?api_token=KFPdUqWoDAR6hp9sWnfVdsL2qRmPV8BGVcyrAoMY&language=${currentLang}&categories=travel,tech&published_after=2021-03-10`
     )
       .then((response) => response.json())
       .then(
