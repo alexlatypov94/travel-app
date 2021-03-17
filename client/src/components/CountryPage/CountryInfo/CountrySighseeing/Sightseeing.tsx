@@ -25,8 +25,7 @@ export const Sightseeing = ({ currentCountry }: any): ReactElement => {
         width: "100%",
         overflow: "auto",
         textAlign: "center",
-        fontSize: "14px",
-        lineHeight: "28px"
+        fontSize: "20px"
       }}
     >
       <Gallery

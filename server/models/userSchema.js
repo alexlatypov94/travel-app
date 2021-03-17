@@ -18,11 +18,25 @@ const userSchema = new Schema({
     ref: 'Link',
   },
   image: {
-    type: String
+    type: String,
   },
   username: {
-    type: String
-  }
+    type: String,
+  },
+  marks: {
+    australia: String,
+    cuba: String,
+    egypt: String,
+    england: String,
+    greece: String,
+    italy: String,
+    mexico: String,
+    portugal: String,
+    spain: String,
+    thailand: String,
+    tunis: String,
+    turkey: String,
+  },
 });
 
 module.exports = model('User', userSchema);

@@ -32,7 +32,6 @@ footer {
     padding: 0;
     position: relative;
     visibility: hidden;
-    left: -15px;
     .dev-item {
       list-style: none;
       border-radius: 2rem;
@@ -46,7 +45,6 @@ footer {
         color: #fff;
         text-align: center;
         object {
-          pointer-events: none;
           width: 2rem;
           height: 2rem;
           margin-right: 0.5rem;
@@ -93,49 +91,5 @@ footer {
   margin: 2rem 0;
 }
 .footer-rs-logo {
-  pointer-events: none;
   height: 2rem;
-}
-
-@media (max-width: 699px) {
-  footer {
-    position: static;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    padding: 0;
-
-    .footer-devs-list {
-      width: 6rem;
-    }
-    .devs-btn {
-      margin-right: 2rem;
-    }
-    .footer-devs-list {
-      left: 0;
-      width: auto;
-      display: flex;
-      visibility: visible;
-      .dev-item {
-        &:nth-child(2) {
-          position: static;
-        }
-        &:nth-child(1) {
-          position: static;
-        }
-      }
-    }
-    .devs-btn {
-      display: none;
-    }
-  }
-
-  .footer-rs-logo {
-    width: 5rem;
-  }
-
-  .footer-year {
-    margin-right: 2rem;
-  }
 }

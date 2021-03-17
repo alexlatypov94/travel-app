@@ -7,20 +7,3 @@
   flex-direction: column;
   position: relative;
 }
-@media (max-width: 1279px) {
-  .app {
-    padding: 0 30px;
-  }
-}
-
-@media (max-width: 1079px) {
-  .app {
-    padding: 0 20px;
-  }
-}
-
-@media (max-width: 699px) {
-  .app {
-    padding: 0 10px;
-  }
-}

@@ -43,11 +43,6 @@ export const AuthPage = (props: any): ReactElement => {
     es: "Ingrese su informacion"
   };
 
-  const handlerWithoutReg = (e) => {
-    e.preventDefault();
-    props.withoutRegFn();
-  };
-
   const logMode = () => {
     setIsLog(true);
     setIsReg(false);
@@ -84,9 +79,9 @@ export const AuthPage = (props: any): ReactElement => {
       });
 
     if (isLog) {
-      setBg("rgba(241, 186, 231, 0.534)");
+      setBg("aqua");
     } else {
-      setBg("rgba(240, 239, 189, 0.534)");
+      setBg("pink");
     }
     if (isSended) {
       setEmail(mail.current.value);
@@ -146,24 +141,19 @@ export const AuthPage = (props: any): ReactElement => {
       {isReg && (
         <div className={"username"}>
           <label htmlFor={"username"}>{userObjText[props.lang]}</label>
-          <input type="email" id={"username"} ref={usrnm} placeholder={"Enter username"} />
+          <input type="text" id={"username"} ref={usrnm} placeholder={"Enter username"} />
         </div>
       )}
       <div className={"mail"}>
         <label htmlFor={"mail"}>E-mail</label>
-        <input type="email" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
+        <input type="text" id={"mail"} ref={mail} placeholder={"Enter e-mail"} />
       </div>
       <div className={"pass"}>
         <label htmlFor={"password"}>{passObjText[props.lang]}</label>
-        <input type="password" id={"password"} ref={psswrd} placeholder={"Enter password"} />
+        <input type="text" id={"password"} ref={psswrd} placeholder={"Enter password"} />
       </div>
 
       <input type="submit" className={"submit-btn"} onClick={postData} value={sendObjText[props.lang]} />
-      {!isReg && (
-        <a href="#" className="without-reg" onClick={handlerWithoutReg}>
-          continue without registration
-        </a>
-      )}
     </div>
   );
 };

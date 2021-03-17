@@ -1,8 +1,7 @@
 .currency-widget {
   color: #fff;
-  background: rgba(247, 223, 223, 0.479);
-  border: 3px solid rgba(253, 225, 244, 0.781);
-  font-weight: bold;
+  background: linear-gradient(0deg, rgba(162, 23, 164, 1) 0%, rgba(161, 20, 141, 1) 21%, rgba(23, 23, 23, 1) 100%);
+  border: 1px solid rgba(255, 6, 172, 0.781);
   .currency-title {
     font-size: 2rem;
     text-transform: uppercase;
@@ -25,7 +24,7 @@
       }
 
       .cost-rate {
-        color: #fff;
+        color: rgb(0, 252, 13);
       }
     }
   }

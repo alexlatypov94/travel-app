@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { Footer, Header, Main, AuthPage } from "./components";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { Footer, Header, Main, AuthPage, ProfilePage } from "./components";
 
 import { Redirect, Route, Switch } from "react-router";
 import { LangContext, contextLang } from "./core";
@@ -14,18 +14,6 @@ const App = (): ReactElement => {
   const [error, setError] = useState(undefined);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isAuth, setIsAuth] = useState(false);
-  const [countriesSlider, setCountriesSlider] = useState([]);
-  const [news, setNews] = useState([]);
-  const localnews: any = JSON.parse(localStorage.getItem("news"));
-
-  const handlerLogOut = () => {
-    localStorage.clear();
-    setIsAuth(false);
-  };
-
-  const handlerWithoutReg = () => {
-    setIsAuth(true);
-  };
 
   const authHandler = (bool) => {
     setIsAuth(bool);
@@ -43,16 +31,6 @@ const App = (): ReactElement => {
     localStorage.setItem("currentCountry", JSON.stringify(country));
   };
 
-  const handlerFilter = (value: string) => {
-    setCountriesSlider(
-      countriesArr.filter((el: any) => {
-        const countryNameLowerCase: string = el?.countryName[currentLang].toLowerCase();
-        const capitalNameLowerCase: string = el?.capital[currentLang].toLowerCase();
-        return countryNameLowerCase.includes(value.toLowerCase()) || capitalNameLowerCase.includes(value.toLowerCase());
-      })
-    );
-  };
-
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       setIsAuth(true);
@@ -63,7 +41,6 @@ const App = (): ReactElement => {
         (result) => {
           setIsLoaded(true);
           setCountriesArr(result);
-          setCountriesSlider(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -72,48 +49,23 @@ const App = (): ReactElement => {
       );
   }, []);
 
-  useEffect(() => {
-    fetch(
-      `https://api.thenewsapi.com/v1/news/top?api_token=joEREGzXgr5XRsIHFOrm22tB1sIc5yLv3cBpimKe&language=${currentLang}&categories=travel,tech&published_after=2021-03-10`
-    )
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setNews(result);
-          localStorage.setItem("news", JSON.stringify(result));
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, [currentLang]);
-
-  console.log(news);
-
   if (error) {
     return <div>Error: {error?.message}</div>;
   } else if (!isLoaded) {
     return <Preloader />;
   } else {
+    console.log(isAuth);
     if (isAuth) {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
-            <Header switchLang={changeLanguarge} filterFn={handlerFilter} worldNews={news.data || localnews.data} />
+            <Header switchLang={changeLanguarge} />
             <Redirect to="/" exact />
             <Switch>
               <Route
                 path="/"
                 exact
-                render={() => (
-                  <Main
-                    countries={countriesSlider}
-                    fnClickCountry={handlerClickCurrentCountry}
-                    logOutFn={handlerLogOut}
-                  />
-                )}
+                render={() => <Main countries={countriesArr} fnClickCountry={handlerClickCurrentCountry} />}
               />
               <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
             </Switch>
@@ -125,11 +77,7 @@ const App = (): ReactElement => {
       return (
         <div className="app">
           <Redirect to="/auth-page" exact />
-          <Route
-            path="/auth-page"
-            exact
-            render={() => <AuthPage lang={currentLang} handler={authHandler} withoutRegFn={handlerWithoutReg} />}
-          />
+          <Route path="/auth-page" exact render={() => <AuthPage lang={currentLang} handler={authHandler} />} />
         </div>
       );
     }

@@ -36,10 +36,3 @@
 .rate-area > label:active {
   position: relative;
 }
-
-@media (max-width: 1079px) {
-  .rating-area:not(:checked) > label {
-    width: 25px;
-    margin-right: 0.2rem;
-  }
-}

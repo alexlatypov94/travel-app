@@ -38,7 +38,6 @@ router.get('/countries', async (req, res) => {
 router.post('/auth', async (req, res) => {
   try {
     const { token } = req.body;
-    console.log(token);
     if (token) {
       res.status(201).json({
         message: {
@@ -110,7 +109,21 @@ router.post(
         email: email,
         password: hashedPassword,
         username: username,
-        image: ''
+        image: '',
+        marks: {
+          australia: '',
+          cuba: '',
+          egypt: '',
+          england: '',
+          greece: '',
+          italy: '',
+          mexico: '',
+          portugal: '',
+          spain: '',
+          thailand: '',
+          tunis: '',
+          turkey: '',
+        },
       });
 
       await user.save();
@@ -199,8 +212,7 @@ router.post(
 
 router.post('/save-image', async (req, res, next) => {
   try {
-    let filedata = req.body;
-    if (!filedata) {
+    if (!req.body) {
       res.status(500).json({
         message: {
           ru: 'Ошибка при загрузке файла',
@@ -209,10 +221,9 @@ router.post('/save-image', async (req, res, next) => {
         },
       });
     } else {
-      const img = req.file;
-      const newPath = img.filename;
-      const user = await User.findOne({ email: filedata.email });
-      console.log(user.password);
+      const { email, image, save } = req.body;
+      const user = await User.findOne({ email: email });
+      const url = image;
       if (!user) {
         res.status(401).json({
           message: {
@@ -222,26 +233,95 @@ router.post('/save-image', async (req, res, next) => {
           },
         });
       } else {
-        const url = `${img.path}`.replace(/\\/g, '/');
-        user.image = url;
-        console.log(user.image)
-        await user.save();
+        if (save === true) {
+          user.image = url;
+          await user.save();
+        }
         res.status(200).json({
           message: {
             ru: 'Успешно загружено',
             en: 'Successfully loaded',
             es: 'Cargado exitosamente',
           },
-          url: url,
+          url: user.image,
         });
       }
     }
   } catch (e) {
     res.status(400).json({
       message: {
-        ru: 'Ошибка при добавлении картинки в базу данных',
-        en: 'Error adding picture to database',
+        ru: `Ошибка при добавлении картинки в базу данных`,
+        en: `Error adding picture to database`,
         es: 'Error al agregar una imagen a la base de datos',
+      },
+    });
+  }
+});
+
+router.get('/get-marks', async (req, res) => {
+  try {
+    const usersData = await User.find({}, { marks: 1, username: 1 });
+    res.status(200).json({
+      message: {
+        ru: 'Успешно загружено',
+        en: 'Successfully loaded',
+        es: 'Cargado exitosamente',
+      },
+      arr: usersData,
+    });
+  } catch (e) {
+    res.status(404).json({
+      message: {
+        ru: 'База данных не найдена',
+        en: 'Database is not found',
+        es: 'База данных не найдена',
+      },
+    });
+  }
+});
+
+router.post('/send-mark', async (req, res) => {
+  try {
+    if (!req.body) {
+      res.status(500).json({
+        message: {
+          ru: 'Ошибка при загрузке файла',
+          en: 'Error loading file',
+          es: 'Error al cargar el archivo',
+        },
+      });
+    } else {
+      const { username, country, mark } = req.body;
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        res.status(401).json({
+          message: {
+            ru: 'Пользователь не найден',
+            en: 'User not found',
+            es: 'No se encuentra el usuario',
+          },
+        });
+      } else {
+        user.marks[country] = String(mark);
+        await user.save();
+      }
+      res.status(200).json({
+        message: {
+          ru: 'Успешно загружено',
+          en: 'Successfully loaded',
+          es: 'Cargado exitosamente',
+        },
+        mark: user.marks[country],
+        countries: user.marks,
+        country: country,
+      });
+    }
+  } catch (e) {
+    res.status(400).json({
+      message: {
+        ru: `Ошибка при сохранении оценки в базе данных${e}`,
+        en: `Error saving mark to database${e}`,
+        es: 'Error al guardar la calificación en la base de datos',
       },
     });
   }

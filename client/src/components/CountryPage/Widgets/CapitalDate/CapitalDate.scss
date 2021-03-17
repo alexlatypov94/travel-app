@@ -1,8 +1,7 @@
 .date-widget {
   color: #fff;
-  background: rgba(247, 223, 223, 0.479);
-  border: 3px solid rgba(253, 225, 244, 0.781);
-  margin: 1rem 0;
+  background: linear-gradient(0deg, rgba(23, 90, 164, 1) 0%, rgba(20, 37, 161, 1) 19%, rgba(23, 23, 23, 1) 100%);
+  border: 1px solid rgba(47, 95, 252, 0.836);
   .date-widget-title {
     text-align: center;
     font-size: 2rem;
@@ -19,7 +18,8 @@
     padding: 1rem;
 
     .date-widget-capital {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      text-decoration: underline;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 1rem;
@@ -28,7 +28,6 @@
     .date-widget-day {
       font-size: 2rem;
       letter-spacing: 1px;
-      text-transform: capitalize;
     }
 
     .date-widget-date-num {
@@ -36,14 +35,4 @@
       font-size: 2rem;
     }
   }
-}
-
-@media (max-width: 1079px) {
-  .date-widget-time {
-    font-size: 2rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 699px) {
 }

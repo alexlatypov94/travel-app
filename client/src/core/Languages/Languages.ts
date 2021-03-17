@@ -85,68 +85,20 @@ export const MONTHS: any = {
   }
 };
 
-export const COUNTRY_PAGE_NAV: any = {
-  info: {
-    en: "country info",
-    ru: "информация",
-    es: "información"
-  },
-
-  gallery: {
-    en: "gallery",
-    ru: "галерея",
-    es: "galería"
-  },
-  map: {
-    en: "map",
-    ru: "карта",
-    es: "mapa"
-  },
-  video: {
-    en: "video",
-    ru: "видео",
-    es: "video"
-  }
+export const MARKS: ISwitchLang = {
+  en: "Mark",
+  ru: "Оценка",
+  es: "Evaluación"
 };
 
-export const LANG_COUNTRY: any = {
-  en: "Country",
-  ru: "Страна",
-  es: "El país"
+export const SHOW_BTN: ISwitchLang = {
+  en: "Show ratings",
+  ru: "Показать оценки",
+  es: "Mostrar calificaciones"
 };
 
-export const LANG_CAPITAL: any = {
-  en: "Capital",
-  ru: "Столица",
-  es: "Capital"
-};
-
-export const SEARCH_PLACEHOLDER: any = {
-  en: "Enter country name",
-  ru: "Введите название страны",
-  es: "Ingrese el nombre del país"
-};
-
-export const HELLO: any = {
-  en: "Hello",
-  ru: "Привет",
-  es: "Hola"
-};
-
-export const CHOOSE_FILE: any = {
+export const UPLOAD: ISwitchLang = {
   en: "Choose file",
   ru: "Выберите файл",
-  es: "Seleccione archivo"
-};
-
-export const NEWS: any = {
-  en: "Click to open news",
-  ru: "Нажмите чтобы открыть новости",
-  es: "Haga clic para abrir noticias"
-};
-
-export const READ_MORE: any = {
-  en: "read more",
-  ru: "читать далее",
-  es: "leer más"
+  es: "Seleccione un archivo"
 };

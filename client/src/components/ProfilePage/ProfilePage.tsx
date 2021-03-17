@@ -1,80 +1,72 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
-import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import "./ProfilePage.scss";
+import { PreloaderMain } from "../Main/PreloaderMain";
+import { ISwitchLang, LangContext, UPLOAD } from "../../core";
 
-export const ProfilePage = ({ logOutFn }: any): ReactElement => {
-  const [isSended, setIsSended] = useState(false);
-  const [imgSrc, setImgSrc] = useState("../../../public/assets/img/no-photo.jpg");
-  const [form, setForm] = useState(undefined);
+export const ProfilePage = (props: any): ReactElement => {
+  const [isSended, setIsSended] = useState(true);
   const lang: any = useContext(LangContext);
+  const [imgSrc, setImgSrc] = useState("");
+  const [buffer, setBuffer] = useState("");
+  const [save, setSave] = useState(false);
+
+  const notUserPhoto: string = "../../../public/assets/img/no-photo.jpg";
 
   const saveImage = (e: any) => {
-    if (e.target.files.length > 0) {
+    setIsSended(false);
+    setSave(true);
+    const image: File = e.target.files[0];
+    const fr: FileReader = new FileReader();
+    fr.readAsDataURL(image);
+    let buff: any;
+    fr.onload = () => {
+      const imageField: any = new Image();
+      imageField.src = fr.result;
+      buff = fr.result;
+      setBuffer(buff);
       setIsSended(true);
-      const formData: FormData = new FormData();
-      formData.append("file", e.target.files[0]);
-      formData.append("email", "batinhuy@gmail.com");
-      setForm(formData);
-    }
-  };
-
-  const handlerLogOut = () => {
-    logOutFn();
+    };
   };
 
   useEffect(() => {
     if (isSended) {
       fetch("http://localhost:3001/api/save-image", {
         method: "POST",
-        body: form
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email: window.localStorage.getItem("usermail"),
+          image: buffer,
+          save: save
+        })
       })
         .then((resolve) => resolve.json())
-        .then((data: any, url: any) => {
-          setImgSrc(url);
-          window.localStorage.setItem("image", data.url);
+        .then((data: any) => {
+          if (data.url === "") {
+            setImgSrc(notUserPhoto);
+          } else {
+            setImgSrc(data.url);
+          }
         })
         .then(() => {
           setIsSended(false);
+          if (save) {
+            setSave(false);
+          }
         });
     }
   }, [isSended]);
 
   return (
-    <>
-      {window.localStorage.username ? (
-        <h1 className="user-name">
-          {HELLO[lang]}, {window.localStorage.username}
-        </h1>
-      ) : (
-        <h1 className="user-name">{HELLO[lang]}, Noname</h1>
-      )}
-      <div className="main-info">
-        <img className="user-photo" src={imgSrc} alt="" />
-      </div>
-      <div className="input__wrapper">
-        <input
-          type="file"
-          onChange={saveImage}
-          accept="image/jpeg,image/png,image/jpg"
-          id="input__file"
-          className="input input__file"
-          multiple
-        />
-        <label htmlFor="input__file" className="input__file-button">
-          <span className="input__file-icon-wrapper">
-            <img
-              className="input__file-icon"
-              src="./../../public/assets/img/download.svg"
-              alt="Выбрать файл"
-              width="25"
-            />
-          </span>
-          <span className="input__file-button-text">{CHOOSE_FILE[lang]}</span>
+    <div className={"profile-page"}>
+      {window.localStorage.username ? <h3>Hello, {window.localStorage.username}</h3> : <input type="text" />}
+      <div className={"main-info"}>
+        {isSended ? <PreloaderMain /> : <img src={imgSrc} />}
+        <input type="file" onChange={saveImage} id="image" accept="image/jpeg,image/png,image/jpg" />
+        <label htmlFor="image">
+          <img src={"../../public/assets/img/upload.svg"} />
+          <p>| {UPLOAD[lang]}</p>
         </label>
-        <button className="log-out-btn" onClick={handlerLogOut}>
-          Log Out
-        </button>
       </div>
-    </>
+    </div>
   );
 };
