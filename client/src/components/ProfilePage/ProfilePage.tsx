@@ -4,6 +4,8 @@
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
 import "./ProfilePage.scss";
+import { PreloaderMain } from "../Main/PreloaderMain";
+import { ISwitchLang, LangContext, UPLOAD } from "../../core";
 
 
 
@@ -11,6 +13,7 @@ import "./ProfilePage.scss";
 export const ProfilePage = ({ logOutFn }: any): ReactElement => {
 
   const [isSended, setIsSended] = useState(true);
+  const lang: any = useContext(LangContext);
   const [imgSrc, setImgSrc] = useState("");
   const [buffer, setBuffer] = useState("");
 
@@ -47,6 +50,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   };
 
   useEffect(() => {
+
     
  
     if (window.localStorage.getItem("token")) {
@@ -90,6 +94,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
 
   return (
    
+   
     
    
     <>
@@ -103,6 +108,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
       <div className="main-info">
         <img className="user-photo" src={imgSrc} alt="" />
       </div>
+   
 
 
 

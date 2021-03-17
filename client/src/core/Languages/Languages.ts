@@ -161,3 +161,9 @@ export const SHOW_BTN: ISwitchLang = {
   ru: "Показать оценки",
   es: "Mostrar calificaciones"
 };
+
+export const UPLOAD: ISwitchLang = {
+  en: "Choose file",
+  ru: "Выберите файл",
+  es: "Seleccione un archivo"
+};

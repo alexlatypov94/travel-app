@@ -17,24 +17,30 @@ export const CountryLadder = (props: any): ReactElement => {
     fetch(urlGet)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setDataArray(data.arr);
+        const newArr = data.arr.filter((el) => el.marks[props.countryName] !== "");
+        setDataArray(newArr);
+        if (dataArray) {
+          const find: Object = data.arr.find((el: any) => el.username === window.localStorage.getItem("username"));
+          props.data(find.marks[props.countryName]);
+        }
+        console.log(dataArray);
       });
-  });
+  }, [dataArray]);
 
   return (
     <div className="rating-list-wrapper">
-      <button className="list-handler" onClick={showList}>
+      <button className={isShow ? "list-handler active" : "list-handler"} onClick={showList}>
         {SHOW_BTN[lang]}
       </button>
-      <ul ref={list} style={isShow ? { display: "block" } : { display: "none" }}>
+      <ul ref={list} style={isShow && dataArray.length > 0 ? { display: "block" } : { display: "none" }}>
         {dataArray &&
-          dataArray.map((el: any) => {
+          dataArray.map((el: any, index: number) => {
             if (el.marks[props.countryName] !== "") {
               return (
-                <li>
-                  <h3>{el.username}</h3>
-                  <p>{el.marks[props.countryName]}</p>
+                <li key={index}>
+                  <p>
+                    <strong>{el.username} </strong>: {el.marks[props.countryName]}
+                  </p>
                 </li>
               );
             }
