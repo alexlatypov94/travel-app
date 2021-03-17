@@ -1,0 +1,141 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  padding: 2rem 2rem 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: auto;
+  .devs-btn {
+    line-height: 0;
+    border: 2px solid #fff;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background: none;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    transform: rotate(-90deg);
+    transition: 0.3s linear;
+
+    &:hover {
+      background: #fff;
+      color: rgb(21, 255, 0);
+      border-color: rgb(21, 255, 0);
+    }
+  }
+  .footer-devs-list {
+    padding: 0;
+    position: relative;
+    visibility: hidden;
+    left: -15px;
+    .dev-item {
+      list-style: none;
+      border-radius: 2rem;
+      a {
+        width: 6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        padding: 1.5rem 1rem;
+        color: #fff;
+        text-align: center;
+        object {
+          pointer-events: none;
+          width: 2rem;
+          height: 2rem;
+          margin-right: 0.5rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.185);
+      }
+
+      &:nth-child(2) {
+        transition: 0.3s linear;
+        position: absolute;
+        top: 0;
+      }
+      &:nth-child(1) {
+        transition: 0.3s linear;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+
+  .footer-devs-list.active-dev {
+    visibility: visible;
+    .dev-item {
+      &:nth-child(2) {
+        position: absolute;
+        top: -100%;
+      }
+      &:nth-child(1) {
+        position: absolute;
+        top: -200%;
+      }
+    }
+  }
+}
+
+.footer-year {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 2rem 0;
+}
+.footer-rs-logo {
+  pointer-events: none;
+  height: 2rem;
+}
+
+@media (max-width: 699px) {
+  footer {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0;
+
+    .footer-devs-list {
+      width: 6rem;
+    }
+    .devs-btn {
+      margin-right: 2rem;
+    }
+    .footer-devs-list {
+      left: 0;
+      width: auto;
+      display: flex;
+      visibility: visible;
+      .dev-item {
+        &:nth-child(2) {
+          position: static;
+        }
+        &:nth-child(1) {
+          position: static;
+        }
+      }
+    }
+    .devs-btn {
+      display: none;
+    }
+  }
+
+  .footer-rs-logo {
+    width: 5rem;
+  }
+
+  .footer-year {
+    margin-right: 2rem;
+  }
+}

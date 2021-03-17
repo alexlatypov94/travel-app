@@ -1,0 +1,49 @@
+.date-widget {
+  color: #fff;
+  background: rgba(247, 223, 223, 0.479);
+  border: 3px solid rgba(253, 225, 244, 0.781);
+  margin: 1rem 0;
+  .date-widget-title {
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(47, 95, 252, 0.836);
+  }
+
+  .date-widget-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    .date-widget-capital {
+      font-size: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .date-widget-day {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+    }
+
+    .date-widget-date-num {
+      margin: 1rem 0;
+      font-size: 2rem;
+    }
+  }
+}
+
+@media (max-width: 1079px) {
+  .date-widget-time {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 699px) {
+}
