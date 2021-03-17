@@ -1,9 +1,10 @@
 .country-nav {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  background: rgb(168, 168, 168);
+  background: rgba(202, 202, 202, 0.747);
   border-radius: 1rem;
   overflow: hidden;
+  align-items: center;
 
   a {
     padding: 1rem 1rem;
@@ -15,6 +16,25 @@
 
     &:hover {
       background: rgb(231, 144, 144);
+    }
+  }
+}
+
+.active {
+  background: rgb(231, 144, 144);
+}
+
+@media (max-width: 1079px) {
+  .country-nav {
+    grid-template-columns: 35% 25% 20% 20%;
+  }
+}
+
+@media (max-width: 699px) {
+  .country-nav {
+    a {
+      font-size: 1.4rem;
+      text-transform: capitalize;
     }
   }
 }

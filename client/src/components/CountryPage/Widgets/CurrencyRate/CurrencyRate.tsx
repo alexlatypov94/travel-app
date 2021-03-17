@@ -5,7 +5,6 @@ import "./CurrencyRate.scss";
 export const CurrencyRate = ({ country, rates }: any): ReactElement => {
   return (
     <aside className="widget-wrapper currency-widget">
-      <h1 className="currency-title">local currency rate</h1>
       <div className="currency-wrapper">
         <div className="current-rate-wrapper">
           <div>

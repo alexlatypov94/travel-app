@@ -18,7 +18,6 @@ export const CapitalDate = ({ country }: any): ReactElement => {
 
   return (
     <aside className="widget-wrapper date-widget">
-      <h1 className="date-widget-title">Date</h1>
       <div className="date-widget-info">
         <h1 className="date-widget-capital">{country.capital[lang]}</h1>
         <h3 className="date-widget-day">

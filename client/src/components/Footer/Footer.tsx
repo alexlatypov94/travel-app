@@ -34,11 +34,13 @@ export const Footer = (): ReactElement => {
         &#10148;
       </button>
       <span className="footer-year">2021</span>
-      <object
-        className="footer-rs-logo"
-        data="../../../public/assets/img/rs_school_js.svg"
-        type="image/svg+xml"
-      ></object>
+      <a href="https://rs.school/react/">
+        <object
+          className="footer-rs-logo"
+          data="../../../public/assets/img/rs_school_js.svg"
+          type="image/svg+xml"
+        ></object>
+      </a>
     </footer>
   );
 };
