@@ -4,10 +4,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = Router();
 
+
 const User = require('../models/userSchema');
 
 const Country = require('../models/countrySchema');
-// const marksSchema = require('./models/marksSchema');
+
 
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -129,6 +130,7 @@ router.post(
  
     
         username: username,
+    
  
      
         image: '',
@@ -287,6 +289,7 @@ router.post("/save-image", async (req, res, next) => {
             en: "Successfully loaded",
             es: "Cargado exitosamente",
           },
+    
     
         
        
