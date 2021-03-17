@@ -31,17 +31,17 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
         }
       );
 
-    // fetch("https://openexchangerates.org/api/latest.json?app_id=8f701a3e421348ca9870fb94fb7a39e0")
-    //   .then((response) => response.json())
-    //   .then(
-    //     (result) => {
-    //       setIsLoaded(true);
-    //       setCurrencyRates(result.rates);
-    //     },
-    //     (error) => {
-    //       setError(error);
-    //     }
-    //   );
+    fetch("https://openexchangerates.org/api/latest.json?app_id=8f701a3e421348ca9870fb94fb7a39e0")
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setCurrencyRates(result.rates);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
   }, [lang]);
 
   if (error) {

@@ -12,10 +12,10 @@ export const Main = (props: any): ReactElement => {
 
   return (
     <main className="container">
-      <p className="user-wrapper-description">{MAIN_DESCRIPTIONS.[currentLang]}</p>
+      <p className="user-wrapper-description">{MAIN_DESCRIPTIONS[currentLang]}</p>
       <div className="main-content">
         <div className="user-wrapper">
-          <ProfilePage />
+          <ProfilePage logOutFn={props.logOutFn} />
         </div>
 
         <div className="country-wrapper">

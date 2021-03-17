@@ -43,6 +43,11 @@ export const AuthPage = (props: any): ReactElement => {
     es: "Ingrese su informacion"
   };
 
+  const handlerWithoutReg = (e) => {
+    e.preventDefault();
+    props.withoutRegFn();
+  };
+
   const logMode = () => {
     setIsLog(true);
     setIsReg(false);
@@ -154,6 +159,11 @@ export const AuthPage = (props: any): ReactElement => {
       </div>
 
       <input type="submit" className={"submit-btn"} onClick={postData} value={sendObjText[props.lang]} />
+      {!isReg && (
+        <a href="#" className="without-reg" onClick={handlerWithoutReg}>
+          continue without registration
+        </a>
+      )}
     </div>
   );
 };

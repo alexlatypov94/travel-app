@@ -2,15 +2,21 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useRef, useSta
 import "./Header.scss";
 import "materialize-css";
 import { NavLink } from "react-router-dom";
-import { LangContext, SEARCH_PLACEHOLDER } from "./../../core";
+import { LangContext, NEWS, READ_MORE, SEARCH_PLACEHOLDER } from "./../../core";
 
 export const Header = (props: any): ReactElement => {
   const search: any = useRef(undefined);
   const [searchValue, setSearchValue] = useState("");
   const [isSearchField, setIsSearchField] = useState(false);
   const [windowLocation, setWindowLocation] = useState("");
+  const [showNews, setShowNews] = useState(false);
+  const lang: any = useContext(LangContext);
   const handlerChangeLang = (e: ChangeEvent) => {
     props.switchLang(e);
+  };
+
+  const handleShowNews = () => {
+    setShowNews(!showNews);
   };
 
   const handlerCountryName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,9 +50,6 @@ export const Header = (props: any): ReactElement => {
     }
   });
 
-  console.log(isSearchField);
-
-  const lang: any = useContext(LangContext);
   return (
     <header>
       <NavLink className="header-globe-nav" to="/" onClick={handlerShowSearch}>
@@ -65,12 +68,32 @@ export const Header = (props: any): ReactElement => {
           autoFocus
           ref={search}
         />
+
         <button className="cross-input" onClick={handlerClearInput}>
           <img src="./../../public/assets/img/remove.svg" alt="" />
         </button>
         <button className="search-input" onClick={handlerSearch}>
           <img src="./../../public/assets/img/transparency.svg" alt="" />
         </button>
+      </div>
+      <div className={`news ${isSearchField ? "news-show" : "news-hide"}`}>
+        <button className="open-news-btn" onClick={handleShowNews}>
+          {NEWS[lang]}
+        </button>
+        <ul className={`news-list ${!showNews ? "nlist-show" : "nlist-hide"}`}>
+          {props?.worldNews?.map((el: any, i: number) => {
+            return (
+              <li className="news-list-item" key={i}>
+                <h3 className="news-item-title">{el.title}</h3>
+                <img src={el.image_url} alt="" />
+                <div className="news-item-description">
+                  {el.snippet}
+                  <a href={el.url}>{READ_MORE[lang]}</a>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
       <select className="header-select-lang" name="languarge" id="changeLang" onChange={handlerChangeLang}>
         <option value="en">en</option>

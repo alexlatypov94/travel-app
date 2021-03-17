@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
 import "./ProfilePage.scss";
 
-export const ProfilePage = (): ReactElement => {
+export const ProfilePage = ({ logOutFn }: any): ReactElement => {
   const [isSended, setIsSended] = useState(false);
   const [imgSrc, setImgSrc] = useState("../../../public/assets/img/no-photo.jpg");
   const [form, setForm] = useState(undefined);
@@ -16,6 +16,10 @@ export const ProfilePage = (): ReactElement => {
       formData.append("email", "batinhuy@gmail.com");
       setForm(formData);
     }
+  };
+
+  const handlerLogOut = () => {
+    logOutFn();
   };
 
   useEffect(() => {
@@ -42,7 +46,7 @@ export const ProfilePage = (): ReactElement => {
           {HELLO[lang]}, {window.localStorage.username}
         </h1>
       ) : (
-        <input type="text" />
+        <h1 className="user-name">{HELLO[lang]}, Noname</h1>
       )}
       <div className="main-info">
         <img className="user-photo" src={imgSrc} alt="" />
@@ -67,6 +71,9 @@ export const ProfilePage = (): ReactElement => {
           </span>
           <span className="input__file-button-text">{CHOOSE_FILE[lang]}</span>
         </label>
+        <button className="log-out-btn" onClick={handlerLogOut}>
+          Log Out
+        </button>
       </div>
     </>
   );

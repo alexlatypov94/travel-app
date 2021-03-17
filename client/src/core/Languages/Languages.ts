@@ -138,3 +138,15 @@ export const CHOOSE_FILE: any = {
   ru: "Выберите файл",
   es: "Seleccione archivo"
 };
+
+export const NEWS: any = {
+  en: "Click to open news",
+  ru: "Нажмите чтобы открыть новости",
+  es: "Haga clic para abrir noticias"
+};
+
+export const READ_MORE: any = {
+  en: "read more",
+  ru: "читать далее",
+  es: "leer más"
+};

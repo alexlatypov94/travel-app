@@ -15,6 +15,17 @@ const App = (): ReactElement => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isAuth, setIsAuth] = useState(false);
   const [countriesSlider, setCountriesSlider] = useState([]);
+  const [news, setNews] = useState([]);
+  const localnews: any = JSON.parse(localStorage.getItem("news"));
+
+  const handlerLogOut = () => {
+    localStorage.clear();
+    setIsAuth(false);
+  };
+
+  const handlerWithoutReg = () => {
+    setIsAuth(true);
+  };
 
   const authHandler = (bool) => {
     setIsAuth(bool);
@@ -61,6 +72,26 @@ const App = (): ReactElement => {
       );
   }, []);
 
+  useEffect(() => {
+    fetch(
+      `https://api.thenewsapi.com/v1/news/top?api_token=joEREGzXgr5XRsIHFOrm22tB1sIc5yLv3cBpimKe&language=${currentLang}&categories=travel,tech&published_after=2021-03-10`
+    )
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setNews(result);
+          localStorage.setItem("news", JSON.stringify(result));
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, [currentLang]);
+
+  console.log(news);
+
   if (error) {
     return <div>Error: {error?.message}</div>;
   } else if (!isLoaded) {
@@ -70,13 +101,19 @@ const App = (): ReactElement => {
       return (
         <LangContext.Provider value={contextLang[currentLang]}>
           <div className="app">
-            <Header switchLang={changeLanguarge} filterFn={handlerFilter} />
+            <Header switchLang={changeLanguarge} filterFn={handlerFilter} worldNews={news.data || localnews.data} />
             <Redirect to="/" exact />
             <Switch>
               <Route
                 path="/"
                 exact
-                render={() => <Main countries={countriesSlider} fnClickCountry={handlerClickCurrentCountry} />}
+                render={() => (
+                  <Main
+                    countries={countriesSlider}
+                    fnClickCountry={handlerClickCurrentCountry}
+                    logOutFn={handlerLogOut}
+                  />
+                )}
               />
               <Route path="/country" render={() => <CountryPage currentCountry={selectedCountry} />} />
             </Switch>
@@ -88,7 +125,11 @@ const App = (): ReactElement => {
       return (
         <div className="app">
           <Redirect to="/auth-page" exact />
-          <Route path="/auth-page" exact render={() => <AuthPage lang={currentLang} handler={authHandler} />} />
+          <Route
+            path="/auth-page"
+            exact
+            render={() => <AuthPage lang={currentLang} handler={authHandler} withoutRegFn={handlerWithoutReg} />}
+          />
         </div>
       );
     }

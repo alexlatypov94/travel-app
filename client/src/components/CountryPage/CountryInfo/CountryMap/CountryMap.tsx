@@ -12,7 +12,7 @@ import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import { POLYGONS } from "./../../../../core";
 
 export const CountryMap = (props: any): ReactElement => {
-  const reArea: Array<Array<number>> = POLYGONS[props?.country?.country].map((element: Array<number>) => {
+  const reArea: Array<Array<number>> | any = POLYGONS[props?.country?.country].map((element: Array<number>) => {
     const array: Array<number> = [];
     element.map((x) => array.unshift(x));
     return array;
