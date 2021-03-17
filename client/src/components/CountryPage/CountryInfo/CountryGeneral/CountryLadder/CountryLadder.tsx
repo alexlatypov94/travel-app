@@ -23,7 +23,6 @@ export const CountryLadder = (props: any): ReactElement => {
           const find: Object = data.arr.find((el: any) => el.username === window.localStorage.getItem("username"));
           props.data(find.marks[props.countryName]);
         }
-        console.log(dataArray);
       });
   }, [dataArray]);
 
