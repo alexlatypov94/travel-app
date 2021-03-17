@@ -84,7 +84,6 @@ export const MONTHS: any = {
     11: "Diciembre"
   }
 };
-
 export const COUNTRY_PAGE_NAV: any = {
   info: {
     en: "country info",
@@ -149,4 +148,22 @@ export const READ_MORE: any = {
   en: "read more",
   ru: "читать далее",
   es: "leer más"
+};
+
+export const MARKS: ISwitchLang = {
+  en: "Mark",
+  ru: "Оценка",
+  es: "Evaluación"
+};
+
+export const SHOW_BTN: ISwitchLang = {
+  en: "Show ratings",
+  ru: "Показать оценки",
+  es: "Mostrar calificaciones"
+};
+
+export const UPLOAD: ISwitchLang = {
+  en: "Choose file",
+  ru: "Выберите файл",
+  es: "Seleccione un archivo"
 };

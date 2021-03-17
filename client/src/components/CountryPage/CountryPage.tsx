@@ -23,7 +23,6 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
         (result) => {
           setIsLoaded(true);
           setWeatherData(result);
-          console.log(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -78,6 +77,7 @@ export const CountryPage = ({ currentCountry }: any): ReactElement => {
         <div className="aside-wrapper">
           <Weather country={currentCountry || country} weather={weatherData} />
           <CapitalDate country={currentCountry || country} />
+
           <CurrencyRate country={currentCountry || country} rates={currencyRates} />
         </div>
       </div>

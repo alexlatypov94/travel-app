@@ -1,21 +1,31 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
-import { CHOOSE_FILE, HELLO, LangContext } from "./../../core";
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import "./ProfilePage.scss";
+import { PreloaderMain } from "../Main/PreloaderMain";
+import { ISwitchLang, LangContext, CHOOSE_FILE, HELLO } from "../../core";
 
-export const ProfilePage = ({ logOutFn }: any): ReactElement => {
-  const [isSended, setIsSended] = useState(false);
-  const [imgSrc, setImgSrc] = useState("../../../public/assets/img/no-photo.jpg");
-  const [form, setForm] = useState(undefined);
+export const ProfilePage = ({ logOutFn }): ReactElement => {
+  const [isSended, setIsSended] = useState(true);
   const lang: any = useContext(LangContext);
+  const [imgSrc, setImgSrc] = useState("");
+  const [buffer, setBuffer] = useState("");
+  const [save, setSave] = useState(false);
+
+  const notUserPhoto: string = "../../../public/assets/img/no-photo.jpg";
 
   const saveImage = (e: any) => {
-    if (e.target.files.length > 0) {
+    setIsSended(false);
+    setSave(true);
+    const image: File = e.target.files[0];
+    const fr: FileReader = new FileReader();
+    fr.readAsDataURL(image);
+    let buff: any;
+    fr.onload = () => {
+      const imageField: any = new Image();
+      imageField.src = fr.result;
+      buff = fr.result;
+      setBuffer(buff);
       setIsSended(true);
-      const formData: FormData = new FormData();
-      formData.append("file", e.target.files[0]);
-      formData.append("email", "batinhuy@gmail.com");
-      setForm(formData);
-    }
+    };
   };
 
   const handlerLogOut = () => {
@@ -24,17 +34,28 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
 
   useEffect(() => {
     if (isSended) {
-      fetch("http://localhost:3001/api/save-image", {
+      fetch("https://cryptic-lake-86056.herokuapp.com/save-image", {
         method: "POST",
-        body: form
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email: window.localStorage.getItem("usermail"),
+          image: buffer,
+          save: save
+        })
       })
         .then((resolve) => resolve.json())
-        .then((data: any, url: any) => {
-          setImgSrc(url);
-          window.localStorage.setItem("image", data.url);
+        .then((data: any) => {
+          if (data.url === "") {
+            setImgSrc(notUserPhoto);
+          } else {
+            setImgSrc(data.url);
+          }
         })
         .then(() => {
           setIsSended(false);
+          if (save) {
+            setSave(false);
+          }
         });
     }
   }, [isSended]);
@@ -48,9 +69,7 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
       ) : (
         <h1 className="user-name">{HELLO[lang]}, Noname</h1>
       )}
-      <div className="main-info">
-        <img className="user-photo" src={imgSrc} alt="" />
-      </div>
+      <div className={"main-info"}>{isSended ? <PreloaderMain /> : <img src={imgSrc} className="user-photo" />}</div>
       <div className="input__wrapper">
         <input
           type="file"
@@ -58,7 +77,6 @@ export const ProfilePage = ({ logOutFn }: any): ReactElement => {
           accept="image/jpeg,image/png,image/jpg"
           id="input__file"
           className="input input__file"
-          multiple
         />
         <label htmlFor="input__file" className="input__file-button">
           <span className="input__file-icon-wrapper">
